@@ -1,0 +1,129 @@
+---
+import Base from "../layouts/Base.astro";
+---
+
+<Base title="Siddharth Bobba">
+  <main>
+
+    <!-- ─── Hero ──────────────────────────────────────────────────────── -->
+    <section class="section hero-section">
+      <div class="container">
+        <div class="hero-eyebrow mono muted">student · developer · builder</div>
+        <h1>Siddharth<br /><span class="accent">Bobba</span></h1>
+        <p class="lead" style="margin-top: 20px; max-width: 520px;">
+          Studying Computer & Information Technology and Economics at Purdue,
+          with a focus on AI. I build tools that solve real problems.
+        </p>
+        <div class="hero-links">
+          <a class="btn btn-primary" href="/#projects">See my work</a>
+          <a class="btn btn-secondary" href="https://linkedin.com/in/siddharth-bobba" target="_blank">LinkedIn</a>
+          <a class="btn btn-secondary" href="https://github.com/siddharthdbobba" target="_blank">GitHub</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── Projects ──────────────────────────────────────────────────── -->
+    <section class="section" id="projects">
+      <div class="container">
+        <h2 style="margin-bottom: 32px;">Projects</h2>
+
+        <a class="card project-card" href="/deduper">
+          <div class="project-header">
+            <div class="project-icon">✦</div>
+            <div class="project-meta">
+              <h3>DeDuper</h3>
+              <span class="mono muted" style="font-size: 0.8rem;">macOS · iOS</span>
+            </div>
+            <div class="project-arrow">→</div>
+          </div>
+          <p style="margin-top: 12px;">
+            Find and remove duplicate photos from your library using on-device AI.
+            Supports Photos.app, local folders, and AI-powered close-call resolution.
+          </p>
+          <div class="project-tags" style="margin-top: 16px;">
+            <span class="tag">Swift</span>
+            <span class="tag">SwiftUI</span>
+            <span class="tag">CoreImage</span>
+            <span class="tag">StoreKit</span>
+            <span class="tag">AI</span>
+          </div>
+        </a>
+
+        <div class="more-hint">
+          <p class="mono muted" style="font-size: 0.85rem;">more coming soon_</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── About ──────────────────────────────────────────────────────── -->
+    <section class="section" id="about">
+      <div class="container about-grid">
+        <div>
+          <h2 style="margin-bottom: 20px;">About</h2>
+          <p style="margin-bottom: 14px;">
+            I'm a student at <strong style="color: var(--text);">Purdue University</strong>
+            studying Computer & Information Technology and Economics, with a focus on
+            artificial intelligence.
+          </p>
+          <p style="margin-bottom: 14px;">
+            I build native macOS and iOS apps using Swift and SwiftUI. I care about
+            making software that's fast, private, and actually useful.
+          </p>
+          <p>
+            When I'm not studying or building, I'm thinking about how AI can be
+            embedded into everyday tools without getting in the way.
+          </p>
+        </div>
+        <div class="about-sidebar">
+          <h3 class="sidebar-label">Stack</h3>
+          <ul class="stack-list">
+            <li>Swift · SwiftUI</li>
+            <li>Python</li>
+            <li>Cloudflare Workers</li>
+            <li>AI / LLM integration</li>
+          </ul>
+          <h3 class="sidebar-label" style="margin-top: 24px;">Education</h3>
+          <p style="color: var(--text); font-size: 0.9rem;">Purdue University</p>
+          <p style="font-size: 0.85rem;">B.S. Computer & Information Technology</p>
+          <p style="font-size: 0.85rem;">B.S. Economics</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</Base>
+
+<style>
+  .hero-section  { padding-top: 96px; padding-bottom: 80px; }
+  .hero-eyebrow  { margin-bottom: 16px; font-size: 0.85rem; letter-spacing: 0.05em; }
+  .hero-links    { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+
+  .project-card  { display: block; }
+  .project-header { display: flex; align-items: center; gap: 14px; }
+  .project-icon  {
+    width: 44px; height: 44px;
+    background: var(--accent);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.3rem; color: white; flex-shrink: 0;
+  }
+  .project-meta  { flex: 1; }
+  .project-arrow { color: var(--muted); font-size: 1.2rem; transition: transform 0.15s; }
+  .project-card:hover .project-arrow { transform: translateX(4px); }
+  .project-tags  { display: flex; flex-wrap: wrap; gap: 6px; }
+  .more-hint     { padding: 28px 0 4px; }
+
+  .about-grid    { display: grid; grid-template-columns: 1fr 220px; gap: 48px; align-items: start; }
+  .about-sidebar { }
+  .sidebar-label {
+    color: var(--muted); font-size: 0.8rem;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    margin-bottom: 12px;
+  }
+  .stack-list    { list-style: none; display: flex; flex-direction: column; gap: 8px; font-size: 0.9rem; color: var(--text); }
+
+  @media (max-width: 600px) {
+    .about-grid   { grid-template-columns: 1fr; }
+    .hero-section { padding-top: 56px; }
+  }
+</style>

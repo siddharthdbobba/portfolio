@@ -1,0 +1,53 @@
+---
+export interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = "Siddharth Bobba — developer, student at Purdue." } = Astro.props;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- Open Graph -->
+    <meta property="og:title"       content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url"         content={canonicalURL} />
+    <meta property="og:type"        content="website" />
+
+    <title>{title}</title>
+
+    <!-- Favicon placeholder — replace public/favicon.svg with your own -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  </head>
+  <body>
+    <nav>
+      <div class="nav-inner">
+        <a class="nav-logo" href="/">siddharth bobba</a>
+        <ul class="nav-links">
+          <li><a href="/#projects">projects</a></li>
+          <li><a href="/#about">about</a></li>
+          <li><a href="https://github.com/siddharthdbobba" target="_blank">github</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <slot />
+
+    <footer>
+      <div class="container">
+        <p>© {new Date().getFullYear()} Siddharth Bobba</p>
+      </div>
+    </footer>
+  </body>
+</html>
+
+<style is:global>
+  @import "../styles/global.css";
+</style>

@@ -1,0 +1,269 @@
+---
+import Base from "../layouts/Base.astro";
+---
+
+<Base
+  title="DeDuper — Remove Duplicate Photos"
+  description="Find and remove duplicate photos from your library using on-device AI. Private, fast, and built for macOS and iOS."
+>
+  <main>
+
+    <!-- ─── Hero ──────────────────────────────────────────────────────── -->
+    <section class="section hero-section">
+      <div class="container">
+        <div class="app-badge-row">
+          <span class="platform-badge">macOS</span>
+          <span class="platform-badge">iOS</span>
+        </div>
+
+        <div class="app-hero-row">
+          <div class="app-icon-lg">✦</div>
+          <div>
+            <h1>DeDuper</h1>
+            <p class="lead" style="margin-top: 8px; max-width: 480px;">
+              Find and remove duplicate photos from your library using on-device AI. Private, fast, and actually reliable.
+            </p>
+          </div>
+        </div>
+
+        <div class="hero-links">
+          <a class="btn btn-primary" href="#pricing">Get DeDuper — $4.99</a>
+          <a class="btn btn-secondary" href="#features">See how it works</a>
+        </div>
+
+        <p class="hero-fine mono muted">One-time purchase · No subscription · Works on macOS &amp; iOS</p>
+      </div>
+    </section>
+
+    <!-- ─── Screenshot placeholder ───────────────────────────────────── -->
+    <section class="section screenshot-section">
+      <div class="container">
+        <div class="screenshot-frame">
+          <div class="screenshot-placeholder">
+            <span class="mono muted" style="font-size: 0.85rem;">screenshots coming soon_</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── Features ─────────────────────────────────────────────────── -->
+    <section class="section" id="features">
+      <div class="container">
+        <h2 style="margin-bottom: 8px;">How it works</h2>
+        <p style="margin-bottom: 40px; max-width: 480px;">
+          DeDuper scans your photo library in seconds, groups near-identical shots, and uses AI to pick the best one — so you don't have to.
+        </p>
+
+        <div class="features-grid">
+          <div class="feature-card card">
+            <div class="feature-icon">🔍</div>
+            <h3>Perceptual hashing</h3>
+            <p>Catches exact duplicates and near-duplicates even across different exports, screenshots, and edits.</p>
+          </div>
+
+          <div class="feature-card card">
+            <div class="feature-icon">🤖</div>
+            <h3>AI close-call resolution</h3>
+            <p>When two photos are too similar to call, GPT-4.1 mini picks the sharper, better-composed shot automatically.</p>
+          </div>
+
+          <div class="feature-card card">
+            <div class="feature-icon">🔒</div>
+            <h3>Fully on-device</h3>
+            <p>Your photos never leave your device unless you opt in to AI review. No cloud uploads, no accounts required.</p>
+          </div>
+
+          <div class="feature-card card">
+            <div class="feature-icon">📂</div>
+            <h3>Photos.app &amp; folders</h3>
+            <p>Scans your Apple Photos library and any local folder. Works wherever your photos live.</p>
+          </div>
+
+          <div class="feature-card card">
+            <div class="feature-icon">🛡️</div>
+            <h3>Protected albums</h3>
+            <p>Mark albums as off-limits. Favorites are always protected automatically — DeDuper will never touch them.</p>
+          </div>
+
+          <div class="feature-card card">
+            <div class="feature-icon">📋</div>
+            <h3>Audit log</h3>
+            <p>Every deletion is logged with photo name, size, and timestamp. Export to CSV anytime.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── Pricing ───────────────────────────────────────────────────── -->
+    <section class="section" id="pricing">
+      <div class="container">
+        <h2 style="margin-bottom: 8px;">Simple pricing</h2>
+        <p style="margin-bottom: 40px;">Pay once, use forever. No subscription, no hidden fees.</p>
+
+        <div class="pricing-row">
+
+          <div class="pricing-card card">
+            <div class="pricing-tier mono muted" style="font-size: 0.8rem; margin-bottom: 8px;">FREE</div>
+            <div class="pricing-price">$0</div>
+            <ul class="pricing-list">
+              <li>✓ Scan &amp; detect duplicates</li>
+              <li>✓ Manual review &amp; delete</li>
+              <li>✓ Protected albums</li>
+              <li>✓ Works with Photos.app &amp; folders</li>
+              <li class="muted">✗ AI close-call resolution</li>
+              <li class="muted">✗ Auto-review during scan</li>
+            </ul>
+          </div>
+
+          <div class="pricing-card card pricing-card--featured">
+            <div class="pricing-tier-badge">Premium</div>
+            <div class="pricing-price">$4.99 <span class="pricing-period">one-time</span></div>
+            <ul class="pricing-list">
+              <li>✓ Everything in Free</li>
+              <li>✓ AI close-call resolution</li>
+              <li>✓ Auto-review during scan</li>
+              <li>✓ GPT-4.1 mini included</li>
+              <li>✓ No API key needed</li>
+            </ul>
+            <a class="btn btn-primary" href="https://YOUR-STORE.lemonsqueezy.com/buy/YOUR-PRODUCT-ID" target="_blank" style="width: 100%; justify-content: center; margin-top: 24px;">
+              Buy DeDuper — $4.99
+            </a>
+          </div>
+
+        </div>
+
+        <p class="mono muted" style="font-size: 0.8rem; margin-top: 24px; text-align: center;">
+          Also available on the <a href="#" style="color: var(--accent);">Mac App Store</a>
+        </p>
+      </div>
+    </section>
+
+    <!-- ─── FAQ ───────────────────────────────────────────────────────── -->
+    <section class="section">
+      <div class="container">
+        <h2 style="margin-bottom: 32px;">FAQ</h2>
+        <div class="faq-list">
+          <div class="faq-item">
+            <h3 class="faq-q">Does it delete photos automatically?</h3>
+            <p class="faq-a">No. DeDuper always shows you what it found before deleting anything. You can also turn on "Hold for review" to move flagged photos to a review album in Photos instead of deleting them outright.</p>
+          </div>
+          <div class="faq-item">
+            <h3 class="faq-q">Does the AI see my photos?</h3>
+            <p class="faq-a">Only if you enable AI close-call resolution and the Premium feature is active. In that case, thumbnail-sized crops are sent to GPT-4.1 mini to pick the better photo. The free version does everything on-device.</p>
+          </div>
+          <div class="faq-item">
+            <h3 class="faq-q">What counts as a duplicate?</h3>
+            <p class="faq-a">Photos taken within a configurable time window (default 30 seconds) that are visually similar based on perceptual hashing. You control the sensitivity — conservative, balanced, or aggressive.</p>
+          </div>
+          <div class="faq-item">
+            <h3 class="faq-q">Does it work with RAW or HEIC photos?</h3>
+            <p class="faq-a">Yes. DeDuper supports HEIC, JPG, PNG, and RAW formats. It can also find HEIC↔JPG cross-format duplicates when that option is enabled.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── Back ───────────────────────────────────────────────────────── -->
+    <section class="section back-section">
+      <div class="container" style="text-align: center;">
+        <a class="btn btn-secondary" href="/">← Back to portfolio</a>
+      </div>
+    </section>
+
+  </main>
+</Base>
+
+<style>
+  /* Hero */
+  .hero-section    { padding-top: 80px; padding-bottom: 64px; }
+  .app-badge-row   { display: flex; gap: 8px; margin-bottom: 24px; }
+  .platform-badge  {
+    padding: 3px 10px;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    font-size: 0.75rem;
+    color: var(--muted);
+    font-family: "SF Mono", "Fira Code", monospace;
+  }
+  .app-hero-row    { display: flex; align-items: center; gap: 24px; margin-bottom: 28px; }
+  .app-icon-lg     {
+    width: 72px; height: 72px; flex-shrink: 0;
+    background: var(--accent);
+    border-radius: 16px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 2rem; color: white;
+  }
+  .hero-links      { display: flex; flex-wrap: wrap; gap: 12px; }
+  .hero-fine       { margin-top: 16px; font-size: 0.8rem; }
+
+  /* Screenshot */
+  .screenshot-section { padding-top: 0; }
+  .screenshot-frame {
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .screenshot-placeholder {
+    background: var(--bg-card);
+    height: 360px;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  /* Features */
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .feature-card  { display: flex; flex-direction: column; gap: 10px; }
+  .feature-icon  { font-size: 1.5rem; }
+
+  /* Pricing */
+  .pricing-row   { display: flex; gap: 20px; align-items: flex-start; max-width: 600px; }
+  .pricing-card  { flex: 1; }
+  .pricing-card--featured {
+    border-color: var(--accent);
+    position: relative;
+  }
+  .pricing-tier-badge {
+    display: inline-block;
+    background: var(--accent);
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 2px 10px;
+    border-radius: 20px;
+    margin-bottom: 12px;
+  }
+  .pricing-price {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 20px;
+    letter-spacing: -0.02em;
+  }
+  .pricing-period { font-size: 0.9rem; font-weight: 400; color: var(--muted); }
+  .pricing-list   { list-style: none; display: flex; flex-direction: column; gap: 10px; font-size: 0.9rem; color: var(--text); }
+  .pricing-list li.muted { color: var(--muted); }
+
+  /* FAQ */
+  .faq-list  { display: flex; flex-direction: column; gap: 0; }
+  .faq-item  { padding: 20px 0; border-bottom: 1px solid var(--border); }
+  .faq-item:first-child { border-top: 1px solid var(--border); }
+  .faq-q     { font-size: 1rem; font-weight: 600; margin-bottom: 8px; color: var(--text); }
+  .faq-a     { font-size: 0.9rem; max-width: 560px; }
+
+  /* Back */
+  .back-section { padding-top: 32px; padding-bottom: 48px; }
+
+  /* Responsive */
+  @media (max-width: 700px) {
+    .features-grid { grid-template-columns: 1fr; }
+    .pricing-row   { flex-direction: column; max-width: 100%; }
+    .app-hero-row  { flex-direction: column; align-items: flex-start; }
+  }
+  @media (max-width: 480px) {
+    .hero-section { padding-top: 48px; }
+    .features-grid { grid-template-columns: 1fr 1fr; }
+  }
+</style>
