@@ -14,6 +14,7 @@ import Base from "../layouts/Base.astro";
         <div class="app-badge-row">
           <span class="platform-badge">macOS</span>
           <span class="platform-badge">iOS</span>
+          <span class="platform-badge beta-badge">Beta</span>
         </div>
 
         <div class="app-hero-row">
@@ -27,11 +28,11 @@ import Base from "../layouts/Base.astro";
         </div>
 
         <div class="hero-links">
-          <a class="btn btn-primary" href="#pricing">Get DeDuper — $4.99</a>
+          <a class="btn btn-primary" href="#download">Download Free</a>
           <a class="btn btn-secondary" href="#features">See how it works</a>
         </div>
 
-        <p class="hero-fine mono muted">One-time purchase · No subscription · Works on macOS &amp; iOS</p>
+        <p class="hero-fine mono muted">Free &amp; open source · macOS 14+</p>
       </div>
     </section>
 
@@ -42,6 +43,34 @@ import Base from "../layouts/Base.astro";
           <div class="screenshot-placeholder">
             <span class="mono muted" style="font-size: 0.85rem;">screenshots coming soon_</span>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── Download ────────────────────────────────────────────────── -->
+    <section class="section" id="download">
+      <div class="container">
+        <h2 style="margin-bottom: 8px;">Download</h2>
+        <p style="margin-bottom: 32px; max-width: 480px;">
+          DeDuper is completely free and open source — every feature included, no accounts, no payments.
+          Scan, review, and delete duplicates (with AI-powered close-call resolution) entirely on your Mac.
+        </p>
+
+        <div class="download-box card">
+          <div class="download-meta">
+            <div class="download-icon">✦</div>
+            <div>
+              <div class="download-name">DeDuper <span class="mono muted" style="font-size: 0.8rem;">beta</span></div>
+              <div class="download-req mono muted">macOS 14 Sonoma or later · Apple Silicon &amp; Intel</div>
+            </div>
+          </div>
+          <a class="btn btn-primary" href="https://github.com/siddharthdbobba/PhotoDeduper/releases/latest" target="_blank">
+            Download .dmg
+          </a>
+        </div>
+
+        <div class="gatekeeper-note card" style="margin-top: 16px;">
+          <strong>First launch on macOS:</strong> If you see "DeDuper can't be opened because it is from an unidentified developer," right-click the app and choose <strong>Open</strong> — then click Open in the dialog. This is a one-time step for apps distributed outside the Mac App Store.
         </div>
       </div>
     </section>
@@ -94,47 +123,28 @@ import Base from "../layouts/Base.astro";
       </div>
     </section>
 
-    <!-- ─── Pricing ───────────────────────────────────────────────────── -->
-    <section class="section" id="pricing">
+    <!-- ─── Free & open source ──────────────────────────────────────────── -->
+    <section class="section" id="open-source">
       <div class="container">
-        <h2 style="margin-bottom: 8px;">Simple pricing</h2>
-        <p style="margin-bottom: 40px;">Pay once, use forever. No subscription, no hidden fees.</p>
-
-        <div class="pricing-row">
-
-          <div class="pricing-card card">
-            <div class="pricing-tier mono muted" style="font-size: 0.8rem; margin-bottom: 8px;">FREE</div>
-            <div class="pricing-price">$0</div>
-            <ul class="pricing-list">
-              <li>✓ Scan &amp; detect duplicates</li>
-              <li>✓ Manual review &amp; delete</li>
-              <li>✓ Protected albums</li>
-              <li>✓ Works with Photos.app &amp; folders</li>
-              <li class="muted">✗ AI close-call resolution</li>
-              <li class="muted">✗ Auto-review during scan</li>
-            </ul>
-          </div>
-
-          <div class="pricing-card card pricing-card--featured">
-            <div class="pricing-tier-badge">Premium</div>
-            <div class="pricing-price">$4.99 <span class="pricing-period">one-time</span></div>
-            <ul class="pricing-list">
-              <li>✓ Everything in Free</li>
-              <li>✓ AI close-call resolution</li>
-              <li>✓ Auto-review during scan</li>
-              <li>✓ GPT-4.1 mini included</li>
-              <li>✓ No API key needed</li>
-            </ul>
-            <span class="btn btn-primary btn-disabled" style="width: 100%; justify-content: center; margin-top: 24px; opacity: 0.5; cursor: not-allowed;">
-              Coming Soon
-            </span>
-          </div>
-
-        </div>
-
-        <p class="mono muted" style="font-size: 0.8rem; margin-top: 24px; text-align: center;">
-          Available soon on the Mac App Store
+        <h2 style="margin-bottom: 8px;">Free &amp; open source</h2>
+        <p style="margin-bottom: 32px; max-width: 480px;">
+          DeDuper is 100% free, with every feature unlocked — no tiers, no subscription, no in-app purchases.
+          The full source is public on GitHub, so you can see exactly what runs on your photos,
+          build it yourself, or contribute.
         </p>
+
+        <div class="download-box card">
+          <div class="download-meta">
+            <div class="download-icon">★</div>
+            <div>
+              <div class="download-name">Open source on GitHub</div>
+              <div class="download-req mono muted">Public repository · contributions welcome</div>
+            </div>
+          </div>
+          <a class="btn btn-primary" href="https://github.com/siddharthdbobba/PhotoDeduper" target="_blank">
+            View source
+          </a>
+        </div>
       </div>
     </section>
 
@@ -149,7 +159,7 @@ import Base from "../layouts/Base.astro";
           </div>
           <div class="faq-item">
             <h3 class="faq-q">Does the AI see my photos?</h3>
-            <p class="faq-a">Only if you enable AI close-call resolution and the Premium feature is active. In that case, thumbnail-sized crops are sent to GPT-4.1 mini to pick the better photo. The free version does everything on-device.</p>
+            <p class="faq-a">Only if you turn on AI close-call resolution. In that case, thumbnail-sized crops are sent to GPT-4.1 mini to pick the better photo. With it off, DeDuper does everything on-device.</p>
           </div>
           <div class="faq-item">
             <h3 class="faq-q">What counts as a duplicate?</h3>
@@ -158,6 +168,14 @@ import Base from "../layouts/Base.astro";
           <div class="faq-item">
             <h3 class="faq-q">Does it work with RAW or HEIC photos?</h3>
             <p class="faq-a">Yes. DeDuper supports HEIC, JPG, PNG, and RAW formats. It can also find HEIC↔JPG cross-format duplicates when that option is enabled.</p>
+          </div>
+          <div class="faq-item">
+            <h3 class="faq-q">macOS says it can't be opened — what do I do?</h3>
+            <p class="faq-a">Right-click (or Control-click) the DeDuper app and choose <strong>Open</strong>. Click Open in the dialog that appears. This is a one-time step — macOS will remember your choice. This prompt appears for apps distributed outside the Mac App Store that aren't yet notarized.</p>
+          </div>
+          <div class="faq-item">
+            <h3 class="faq-q">Is DeDuper really free?</h3>
+            <p class="faq-a">Yes — completely. DeDuper is free and open source, with every feature included. There's no paid tier, no subscription, and no in-app purchases. The full source is public on GitHub, so you can review it, build it yourself, or contribute.</p>
           </div>
         </div>
       </div>
@@ -184,6 +202,39 @@ import Base from "../layouts/Base.astro";
     font-size: 0.75rem;
     color: var(--muted);
     font-family: "SF Mono", "Fira Code", monospace;
+  }
+  .beta-badge {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  /* Download */
+  .download-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    max-width: 560px;
+  }
+  .download-meta   { display: flex; align-items: center; gap: 16px; }
+  .download-icon   {
+    width: 44px; height: 44px; flex-shrink: 0;
+    background: var(--accent);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.3rem; color: white;
+  }
+  .download-name   { font-weight: 600; font-size: 1rem; color: var(--text); margin-bottom: 2px; }
+  .download-req    { font-size: 0.78rem; }
+  .gatekeeper-note {
+    max-width: 560px;
+    font-size: 0.85rem;
+    line-height: 1.6;
+    border-left: 3px solid var(--border);
+    border-radius: 0 var(--radius) var(--radius) 0;
+  }
+  @media (max-width: 500px) {
+    .download-box { flex-direction: column; align-items: flex-start; }
   }
   .app-hero-row    { display: flex; align-items: center; gap: 24px; margin-bottom: 28px; }
   .app-icon-lg     {
@@ -218,34 +269,6 @@ import Base from "../layouts/Base.astro";
   .feature-card  { display: flex; flex-direction: column; gap: 10px; }
   .feature-icon  { font-size: 1.5rem; }
 
-  /* Pricing */
-  .pricing-row   { display: flex; gap: 20px; align-items: flex-start; max-width: 600px; }
-  .pricing-card  { flex: 1; }
-  .pricing-card--featured {
-    border-color: var(--accent);
-    position: relative;
-  }
-  .pricing-tier-badge {
-    display: inline-block;
-    background: var(--accent);
-    color: white;
-    font-size: 0.75rem;
-    font-weight: 600;
-    padding: 2px 10px;
-    border-radius: 20px;
-    margin-bottom: 12px;
-  }
-  .pricing-price {
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--text);
-    margin-bottom: 20px;
-    letter-spacing: -0.02em;
-  }
-  .pricing-period { font-size: 0.9rem; font-weight: 400; color: var(--muted); }
-  .pricing-list   { list-style: none; display: flex; flex-direction: column; gap: 10px; font-size: 0.9rem; color: var(--text); }
-  .pricing-list li.muted { color: var(--muted); }
-
   /* FAQ */
   .faq-list  { display: flex; flex-direction: column; gap: 0; }
   .faq-item  { padding: 20px 0; border-bottom: 1px solid var(--border); }
@@ -259,7 +282,6 @@ import Base from "../layouts/Base.astro";
   /* Responsive */
   @media (max-width: 700px) {
     .features-grid { grid-template-columns: 1fr; }
-    .pricing-row   { flex-direction: column; max-width: 100%; }
     .app-hero-row  { flex-direction: column; align-items: flex-start; }
   }
   @media (max-width: 480px) {
