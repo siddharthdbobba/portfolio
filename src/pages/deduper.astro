@@ -53,7 +53,7 @@ import Base from "../layouts/Base.astro";
         <h2 style="margin-bottom: 8px;">Download</h2>
         <p style="margin-bottom: 32px; max-width: 480px;">
           DeDuper is completely free and open source — every feature included, no accounts, no payments.
-          Scan, review, and delete duplicates (with AI-powered close-call resolution) entirely on your Mac.
+          Scan, review, and delete duplicates — with on-device close-call resolution — entirely on your Mac.
         </p>
 
         <div class="download-box card">
@@ -64,7 +64,7 @@ import Base from "../layouts/Base.astro";
               <div class="download-req mono muted">macOS 14 Sonoma or later · Apple Silicon &amp; Intel</div>
             </div>
           </div>
-          <a class="btn btn-primary" href="https://github.com/siddharthdbobba/PhotoDeduper/releases/latest" target="_blank">
+          <a class="btn btn-primary" href="https://github.com/siddharthdbobba/DeDuper/releases/latest" target="_blank">
             Download .dmg
           </a>
         </div>
@@ -92,14 +92,14 @@ import Base from "../layouts/Base.astro";
 
           <div class="feature-card card">
             <div class="feature-icon">🤖</div>
-            <h3>AI close-call resolution</h3>
-            <p>When two photos are too similar to call, GPT-4.1 mini picks the sharper, better-composed shot automatically.</p>
+            <h3>On-device close-call resolution</h3>
+            <p>When two photos are too similar to call, an on-device Vision pass — face sharpness, eyes-open, overall aesthetics — breaks the tie and tells you why.</p>
           </div>
 
           <div class="feature-card card">
             <div class="feature-icon">🔒</div>
             <h3>Fully on-device</h3>
-            <p>Your photos never leave your device unless you opt in to AI review. No cloud uploads, no accounts required.</p>
+            <p>Your photos never leave your device — DeDuper has no network access at all. No cloud uploads, no accounts, no tracking.</p>
           </div>
 
           <div class="feature-card card">
@@ -141,7 +141,7 @@ import Base from "../layouts/Base.astro";
               <div class="download-req mono muted">Public repository · contributions welcome</div>
             </div>
           </div>
-          <a class="btn btn-primary" href="https://github.com/siddharthdbobba/PhotoDeduper" target="_blank">
+          <a class="btn btn-primary" href="https://github.com/siddharthdbobba/DeDuper" target="_blank">
             View source
           </a>
         </div>
@@ -158,8 +158,8 @@ import Base from "../layouts/Base.astro";
             <p class="faq-a">No. DeDuper always shows you what it found before deleting anything. You can also turn on "Hold for review" to move flagged photos to a review album in Photos instead of deleting them outright.</p>
           </div>
           <div class="faq-item">
-            <h3 class="faq-q">Does the AI see my photos?</h3>
-            <p class="faq-a">Only if you turn on AI close-call resolution. In that case, thumbnail-sized crops are sent to GPT-4.1 mini to pick the better photo. With it off, DeDuper does everything on-device.</p>
+            <h3 class="faq-q">Do my photos ever leave my Mac?</h3>
+            <p class="faq-a">No. DeDuper has no network access — your photos and their metadata never leave your device. Grouping, scoring, and close-call resolution all run entirely on-device using Apple's Vision and Core Image frameworks.</p>
           </div>
           <div class="faq-item">
             <h3 class="faq-q">What counts as a duplicate?</h3>
