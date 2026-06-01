@@ -264,6 +264,11 @@ footer {
     scroll-behavior: auto !important;
   }
   body::before { animation: none; }
-  .logo-caret { animation: none; }
+  /* Exception: keep the sb_ caret blinking even under reduced-motion. It's a
+     slow (~1.1s), tiny terminal cursor — well under the flash-safety threshold
+     and core to the brand mark. !important overrides the global * rule above. */
+  .logo-caret {
+    animation: caret-blink 1.1s steps(1) infinite !important;
+  }
   .js .reveal { opacity: 1; transform: none; }
 }
