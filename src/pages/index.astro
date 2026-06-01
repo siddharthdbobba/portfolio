@@ -7,9 +7,9 @@ import Base from "../layouts/Base.astro";
 
     <!-- ─── Hero ──────────────────────────────────────────────────────── -->
     <section class="section hero-section">
-      <div class="container">
+      <div class="container reveal">
         <div class="hero-eyebrow mono muted">student · developer · builder</div>
-        <h1>Siddharth<br /><span class="accent">Bobba</span></h1>
+        <h1>Siddharth<br /><span class="gradient-text">Bobba</span></h1>
         <p class="lead" style="margin-top: 20px; max-width: 520px;">
           Studying Computer & Information Technology and Economics at Purdue,
           with a focus on AI. I build tools that solve real problems.
@@ -25,9 +25,9 @@ import Base from "../layouts/Base.astro";
     <!-- ─── Projects ──────────────────────────────────────────────────── -->
     <section class="section" id="projects">
       <div class="container">
-        <h2 style="margin-bottom: 32px;">Projects</h2>
+        <h2 class="reveal" style="margin-bottom: 32px;">Projects</h2>
 
-        <a class="card project-card" href="/deduper">
+        <a class="card project-card reveal" href="/deduper">
           <div class="project-header">
             <div class="project-icon">✦</div>
             <div class="project-meta">
@@ -49,7 +49,7 @@ import Base from "../layouts/Base.astro";
           </div>
         </a>
 
-        <a class="card project-card" href="https://stickers.siddharthbobba.com" target="_blank" rel="noopener" style="margin-top: 16px;">
+        <a class="card project-card reveal" href="https://stickers.siddharthbobba.com" target="_blank" rel="noopener" style="margin-top: 16px; transition-delay: 0.08s;">
           <div class="project-header">
             <div class="project-icon">▲</div>
             <div class="project-meta">
@@ -78,7 +78,7 @@ import Base from "../layouts/Base.astro";
 
     <!-- ─── About ──────────────────────────────────────────────────────── -->
     <section class="section" id="about">
-      <div class="container about-grid">
+      <div class="container about-grid reveal">
         <div>
           <h2 style="margin-bottom: 20px;">About</h2>
           <p style="margin-bottom: 14px;">
@@ -122,11 +122,12 @@ import Base from "../layouts/Base.astro";
   .project-card  { display: block; }
   .project-header { display: flex; align-items: center; gap: 14px; }
   .project-icon  {
-    width: 44px; height: 44px;
-    background: var(--accent);
-    border-radius: 10px;
+    width: 46px; height: 46px;
+    background: var(--grad);
+    border-radius: 12px;
     display: flex; align-items: center; justify-content: center;
     font-size: 1.3rem; color: white; flex-shrink: 0;
+    box-shadow: 0 8px 20px -8px rgba(59,130,246,0.6);
   }
   .project-meta  { flex: 1; }
   .project-arrow { color: var(--muted); font-size: 1.2rem; transition: transform 0.15s; }

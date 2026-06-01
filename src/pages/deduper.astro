@@ -9,7 +9,7 @@ import Base from "../layouts/Base.astro";
   <main>
 
     <!-- ─── Hero ──────────────────────────────────────────────────────── -->
-    <section class="section hero-section">
+    <section class="section hero-section reveal">
       <div class="container">
         <div class="app-badge-row">
           <span class="platform-badge">macOS</span>
@@ -37,7 +37,7 @@ import Base from "../layouts/Base.astro";
     </section>
 
     <!-- ─── Screenshot placeholder ───────────────────────────────────── -->
-    <section class="section screenshot-section">
+    <section class="section screenshot-section reveal">
       <div class="container">
         <div class="screenshot-frame">
           <div class="screenshot-placeholder">
@@ -48,7 +48,7 @@ import Base from "../layouts/Base.astro";
     </section>
 
     <!-- ─── Download ────────────────────────────────────────────────── -->
-    <section class="section" id="download">
+    <section class="section reveal" id="download">
       <div class="container">
         <h2 style="margin-bottom: 8px;">Download</h2>
         <p style="margin-bottom: 32px; max-width: 480px;">
@@ -76,7 +76,7 @@ import Base from "../layouts/Base.astro";
     </section>
 
     <!-- ─── Features ─────────────────────────────────────────────────── -->
-    <section class="section" id="features">
+    <section class="section reveal" id="features">
       <div class="container">
         <h2 style="margin-bottom: 8px;">How it works</h2>
         <p style="margin-bottom: 40px; max-width: 480px;">
@@ -124,7 +124,7 @@ import Base from "../layouts/Base.astro";
     </section>
 
     <!-- ─── Free & open source ──────────────────────────────────────────── -->
-    <section class="section" id="open-source">
+    <section class="section reveal" id="open-source">
       <div class="container">
         <h2 style="margin-bottom: 8px;">Free &amp; open source</h2>
         <p style="margin-bottom: 32px; max-width: 480px;">
@@ -149,7 +149,7 @@ import Base from "../layouts/Base.astro";
     </section>
 
     <!-- ─── FAQ ───────────────────────────────────────────────────────── -->
-    <section class="section">
+    <section class="section reveal">
       <div class="container">
         <h2 style="margin-bottom: 32px;">FAQ</h2>
         <div class="faq-list">
@@ -219,10 +219,11 @@ import Base from "../layouts/Base.astro";
   .download-meta   { display: flex; align-items: center; gap: 16px; }
   .download-icon   {
     width: 44px; height: 44px; flex-shrink: 0;
-    background: var(--accent);
-    border-radius: 10px;
+    background: var(--grad);
+    border-radius: 12px;
     display: flex; align-items: center; justify-content: center;
     font-size: 1.3rem; color: white;
+    box-shadow: 0 8px 20px -8px rgba(59,130,246,0.55);
   }
   .download-name   { font-weight: 600; font-size: 1rem; color: var(--text); margin-bottom: 2px; }
   .download-req    { font-size: 0.78rem; }
@@ -230,7 +231,7 @@ import Base from "../layouts/Base.astro";
     max-width: 560px;
     font-size: 0.85rem;
     line-height: 1.6;
-    border-left: 3px solid var(--border);
+    border-left: 3px solid var(--accent);
     border-radius: 0 var(--radius) var(--radius) 0;
   }
   @media (max-width: 500px) {
@@ -239,10 +240,11 @@ import Base from "../layouts/Base.astro";
   .app-hero-row    { display: flex; align-items: center; gap: 24px; margin-bottom: 28px; }
   .app-icon-lg     {
     width: 72px; height: 72px; flex-shrink: 0;
-    background: var(--accent);
-    border-radius: 16px;
+    background: var(--grad);
+    border-radius: 18px;
     display: flex; align-items: center; justify-content: center;
     font-size: 2rem; color: white;
+    box-shadow: 0 14px 34px -12px rgba(59,130,246,0.65);
   }
   .hero-links      { display: flex; flex-wrap: wrap; gap: 12px; }
   .hero-fine       { margin-top: 16px; font-size: 0.8rem; }
@@ -266,8 +268,15 @@ import Base from "../layouts/Base.astro";
     grid-template-columns: repeat(3, 1fr);
     gap: 16px;
   }
-  .feature-card  { display: flex; flex-direction: column; gap: 10px; }
-  .feature-icon  { font-size: 1.5rem; }
+  .feature-card  { display: flex; flex-direction: column; gap: 12px; }
+  .feature-icon  {
+    width: 42px; height: 42px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.35rem; line-height: 1;
+    background: var(--grad-soft);
+    border: 1px solid var(--border-hi);
+    border-radius: 11px;
+  }
 
   /* FAQ */
   .faq-list  { display: flex; flex-direction: column; gap: 0; }
