@@ -1,0 +1,256 @@
+---
+import Base from "../../layouts/Base.astro";
+---
+
+<Base
+  title="DeDuper Support — Help & Troubleshooting"
+  description="Get help with DeDuper. Contact support, report a bug, and find quick fixes for the most common issues on macOS."
+>
+  <main>
+
+    <!-- ─── Hero ──────────────────────────────────────────────────────── -->
+    <section class="section support-hero reveal">
+      <div class="container">
+        <div class="crumb mono muted">
+          <a href="/deduper">DeDuper</a> <span aria-hidden="true">/</span> Support
+        </div>
+        <h1>Support</h1>
+        <p class="lead" style="margin-top: 16px; max-width: 520px;">
+          Trouble getting DeDuper running, or found a bug? Reach out below —
+          and check the quick fixes for the most common issues first.
+        </p>
+      </div>
+    </section>
+
+    <!-- ─── Get help ──────────────────────────────────────────────────── -->
+    <section class="section reveal" id="contact">
+      <div class="container">
+        <h2 style="margin-bottom: 8px;">Get in touch</h2>
+        <p style="margin-bottom: 32px; max-width: 520px;">
+          DeDuper is free and open source, maintained in my spare time. I read every
+          message — email is best for help, GitHub for bugs and feature requests.
+        </p>
+
+        <div class="contact-grid">
+          <div class="contact-card card">
+            <div class="contact-icon">✉</div>
+            <h3>Email support</h3>
+            <p>
+              For setup help, questions, or anything that doesn't fit a bug report.
+              I usually reply within a couple of days.
+            </p>
+            <a
+              class="btn btn-primary contact-btn"
+              href="mailto:siddharthdbobba@gmail.com?subject=DeDuper%20Support"
+            >
+              siddharthdbobba@gmail.com
+            </a>
+          </div>
+
+          <div class="contact-card card">
+            <div class="contact-icon">★</div>
+            <h3>Report a bug or request a feature</h3>
+            <p>
+              Open an issue on GitHub. Searchable, public, and the fastest way
+              to get a fix into a release.
+            </p>
+            <a
+              class="btn btn-secondary contact-btn"
+              href="https://github.com/siddharthdbobba/DeDuper/issues"
+              target="_blank"
+              rel="noopener"
+            >
+              GitHub Issues
+            </a>
+          </div>
+        </div>
+
+        <div class="report-note card">
+          <strong>Filing a bug? Please include:</strong> your macOS version
+          (<span class="mono"> Apple menu → About This Mac</span>), the DeDuper version
+          (<span class="mono">DeDuper → About DeDuper</span>), and the steps that led to
+          the problem. Screenshots help a lot. Never include the photos themselves.
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── Troubleshooting ───────────────────────────────────────────── -->
+    <section class="section reveal" id="troubleshooting">
+      <div class="container">
+        <h2 style="margin-bottom: 8px;">Common issues</h2>
+        <p style="margin-bottom: 32px; max-width: 520px;">
+          Most questions come down to one of these. If yours isn't here,
+          <a class="inline-link" href="#contact">get in touch</a>.
+        </p>
+
+        <div class="help-list">
+          <div class="help-item">
+            <h3 class="help-q">"DeDuper can't be opened because it is from an unidentified developer"</h3>
+            <p class="help-a">
+              Right-click (or Control-click) the DeDuper app and choose <strong>Open</strong>,
+              then click <strong>Open</strong> in the dialog. This is a one-time step for apps
+              distributed outside the Mac App Store — macOS remembers your choice afterward.
+            </p>
+          </div>
+
+          <div class="help-item">
+            <h3 class="help-q">DeDuper can't see my photos / no photos found</h3>
+            <p class="help-a">
+              macOS gates access to your library. Open
+              <span class="mono">System Settings → Privacy &amp; Security → Photos</span> and turn on
+              DeDuper, then relaunch the app. For scanning a local folder, grant access when prompted —
+              or add DeDuper under <span class="mono">Privacy &amp; Security → Files and Folders</span> /
+              <span class="mono">Full Disk Access</span>.
+            </p>
+          </div>
+
+          <div class="help-item">
+            <h3 class="help-q">Scanning is slow or looks stuck</h3>
+            <p class="help-a">
+              The first scan of a large library takes longest — DeDuper builds a perceptual hash for
+              every photo. Progress can pause on big videos or RAW files. Leave it running; subsequent
+              scans are much faster. If it never finishes, email me with your library size and macOS version.
+            </p>
+          </div>
+
+          <div class="help-item">
+            <h3 class="help-q">It flagged too many — or too few — duplicates</h3>
+            <p class="help-a">
+              Tune the sensitivity (conservative, balanced, or aggressive) and the time window
+              (default 30 seconds) in settings. Conservative flags only near-identical shots taken
+              moments apart; aggressive casts a wider net. Favorites and any albums you mark as
+              protected are never touched.
+            </p>
+          </div>
+
+          <div class="help-item">
+            <h3 class="help-q">I deleted photos I wanted to keep</h3>
+            <p class="help-a">
+              Nothing is permanently erased. Photos removed from your Apple Photos library go to the
+              <strong>Recently Deleted</strong> album, recoverable for 30 days; files removed from a local
+              folder go to the <strong>Trash</strong>. To decide before anything is removed at all, turn on
+              <strong>Hold for review</strong> — DeDuper then moves flagged photos to a review album instead
+              of deleting them.
+            </p>
+          </div>
+
+          <div class="help-item">
+            <h3 class="help-q">How do I update DeDuper?</h3>
+            <p class="help-a">
+              Download the latest <span class="mono">.dmg</span> from the
+              <a class="inline-link" href="https://github.com/siddharthdbobba/DeDuper/releases/latest" target="_blank" rel="noopener">GitHub releases page</a>
+              and drag it over the old copy in Applications. Your settings and protected albums normally carry over.
+            </p>
+          </div>
+
+          <div class="help-item">
+            <h3 class="help-q">Is my data private?</h3>
+            <p class="help-a">
+              Yes. DeDuper has no network access — your photos and their metadata never leave your device.
+              Grouping, scoring, and close-call resolution all run on-device. There are no accounts, no
+              uploads, and no tracking. You can verify this yourself in the
+              <a class="inline-link" href="https://github.com/siddharthdbobba/DeDuper" target="_blank" rel="noopener">open source</a>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── Quick links ───────────────────────────────────────────────── -->
+    <section class="section reveal" id="links">
+      <div class="container">
+        <h2 style="margin-bottom: 24px;">Quick links</h2>
+        <div class="links-row">
+          <a class="link-chip card" href="https://github.com/siddharthdbobba/DeDuper/releases/latest" target="_blank" rel="noopener">
+            <span class="link-chip-title">Download the latest version</span>
+            <span class="mono muted">GitHub releases ↗</span>
+          </a>
+          <a class="link-chip card" href="https://github.com/siddharthdbobba/DeDuper" target="_blank" rel="noopener">
+            <span class="link-chip-title">View the source</span>
+            <span class="mono muted">github.com/siddharthdbobba/DeDuper ↗</span>
+          </a>
+          <a class="link-chip card" href="/deduper#features">
+            <span class="link-chip-title">How DeDuper works</span>
+            <span class="mono muted">features &amp; FAQ →</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── Back ──────────────────────────────────────────────────────── -->
+    <section class="section back-section">
+      <div class="container" style="text-align: center;">
+        <a class="btn btn-secondary" href="/deduper">← Back to DeDuper</a>
+      </div>
+    </section>
+
+  </main>
+</Base>
+
+<style>
+  /* Hero */
+  .support-hero { padding-top: 72px; padding-bottom: 48px; }
+  .crumb        { margin-bottom: 20px; font-size: 0.85rem; }
+  .crumb a      { color: var(--muted); transition: color 0.15s; }
+  .crumb a:hover { color: var(--accent); }
+
+  .inline-link  { color: var(--accent); }
+  .inline-link:hover { text-decoration: underline; }
+
+  /* Contact */
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    max-width: 620px;
+  }
+  .contact-card { display: flex; flex-direction: column; gap: 10px; }
+  .contact-icon {
+    width: 44px; height: 44px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.3rem; line-height: 1; color: #fff;
+    background: var(--grad);
+    border-radius: 12px;
+    box-shadow: 0 8px 20px -8px rgba(59,130,246,0.55);
+  }
+  .contact-card p { font-size: 0.9rem; flex: 1; }
+  .contact-btn  { margin-top: 4px; align-self: flex-start; }
+
+  .report-note {
+    max-width: 620px;
+    margin-top: 16px;
+    font-size: 0.85rem;
+    line-height: 1.6;
+    border-left: 3px solid var(--accent);
+    border-radius: 0 var(--radius) var(--radius) 0;
+  }
+
+  /* Troubleshooting */
+  .help-list { display: flex; flex-direction: column; gap: 0; }
+  .help-item { padding: 20px 0; border-bottom: 1px solid var(--border); }
+  .help-item:first-child { border-top: 1px solid var(--border); }
+  .help-q { font-size: 1rem; font-weight: 600; margin-bottom: 8px; color: var(--text); }
+  .help-a { font-size: 0.9rem; max-width: 620px; }
+
+  /* Quick links */
+  .links-row { display: flex; flex-direction: column; gap: 12px; max-width: 560px; }
+  .link-chip {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 18px 22px;
+  }
+  .link-chip-title { font-weight: 600; color: var(--text); font-size: 0.95rem; }
+  .link-chip .mono { font-size: 0.78rem; }
+
+  /* Back */
+  .back-section { padding-top: 32px; padding-bottom: 48px; }
+
+  /* Responsive */
+  @media (max-width: 560px) {
+    .contact-grid { grid-template-columns: 1fr; }
+    .support-hero { padding-top: 48px; }
+    .link-chip { flex-direction: column; align-items: flex-start; gap: 6px; }
+  }
+</style>

@@ -178,6 +178,10 @@ import Base from "../layouts/Base.astro";
             <p class="faq-a">Yes — completely. DeDuper is free and open source, with every feature included. There's no paid tier, no subscription, and no in-app purchases. The full source is public on GitHub, so you can review it, build it yourself, or contribute.</p>
           </div>
         </div>
+
+        <p class="faq-more">
+          Still have a question or running into trouble? <a href="/deduper/support">Visit support →</a>
+        </p>
       </div>
     </section>
 
@@ -284,6 +288,9 @@ import Base from "../layouts/Base.astro";
   .faq-item:first-child { border-top: 1px solid var(--border); }
   .faq-q     { font-size: 1rem; font-weight: 600; margin-bottom: 8px; color: var(--text); }
   .faq-a     { font-size: 0.9rem; max-width: 560px; }
+  .faq-more  { margin-top: 24px; font-size: 0.9rem; }
+  .faq-more a { color: var(--accent); }
+  .faq-more a:hover { text-decoration: underline; }
 
   /* Back */
   .back-section { padding-top: 32px; padding-bottom: 48px; }
