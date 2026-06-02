@@ -1,0 +1,77 @@
+---
+import { getCollection, render } from "astro:content";
+import Base from "../../layouts/Base.astro";
+import MediaPlaceholder from "../../components/MediaPlaceholder.astro";
+
+export async function getStaticPaths() {
+  const trips = (await getCollection("trips")).filter((t) => !t.data.draft);
+  return trips.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+
+const { entry } = Astro.props;
+const { title, location, date, cover, gallery } = entry.data;
+const { Content } = await render(entry);
+const hasStory = (entry.body ?? "").trim().length > 0;
+const dateLabel = date.toLocaleDateString("en-US", { month: "long", year: "numeric" });
+---
+<Base title={`${title} — Trips`} description={`${title}, ${location}.`}>
+  <main>
+    <section class="section hero-section reveal">
+      <div class="container">
+        <a class="back-link mono muted link-accent" href="/trips">← trips</a>
+        <h1 style="margin-top: 16px;">{title}</h1>
+        <p class="trip-meta mono muted">{location} · {dateLabel}</p>
+      </div>
+    </section>
+
+    <section class="section reveal" style="padding-top: 0;">
+      <div class="container">
+        {cover
+          ? <img class="trip-hero-img" src={cover} alt={title} />
+          : <MediaPlaceholder label="photo coming soon_" ratio="16 / 9" />}
+      </div>
+    </section>
+
+    {hasStory && (
+      <section class="section reveal">
+        <div class="container trip-story">
+          <Content />
+        </div>
+      </section>
+    )}
+
+    {gallery.length > 0 && (
+      <section class="section reveal">
+        <div class="container">
+          <div class="trip-gallery">
+            {gallery.map((src) => (
+              <img src={src} alt={`${title} photo`} loading="lazy" />
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
+
+    <section class="section back-section">
+      <div class="container" style="text-align: center;">
+        <a class="btn btn-secondary" href="/trips">← All trips</a>
+      </div>
+    </section>
+  </main>
+</Base>
+
+<style>
+  .hero-section  { padding-top: 64px; padding-bottom: 24px; }
+  .back-link     { font-size: 0.85rem; }
+  .trip-meta     { font-size: 0.85rem; margin-top: 8px; }
+  .trip-hero-img {
+    width: 100%; max-height: 460px; object-fit: cover;
+    border-radius: var(--radius); border: 1px solid var(--border);
+  }
+  .trip-story :global(p) { margin-bottom: 14px; max-width: 620px; color: var(--text); }
+  .trip-gallery { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .trip-gallery img { width: 100%; border-radius: 10px; border: 1px solid var(--border); }
+  .back-section { padding-top: 24px; padding-bottom: 48px; }
+
+  @media (max-width: 600px) { .trip-gallery { grid-template-columns: 1fr; } }
+</style>
