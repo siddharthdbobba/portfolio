@@ -1,0 +1,25 @@
+---
+interface Props {
+  label?: string;
+  ratio?: string; // CSS aspect-ratio, e.g. "16 / 9"
+}
+const { label = "coming soon_", ratio = "16 / 9" } = Astro.props;
+---
+<div class="media-placeholder" style={`aspect-ratio:${ratio}`}>
+  <span class="mono muted">{label}</span>
+</div>
+
+<style>
+  .media-placeholder {
+    width: 100%;
+    background:
+      linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0) 60%),
+      var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .media-placeholder span { font-size: 0.85rem; }
+</style>
