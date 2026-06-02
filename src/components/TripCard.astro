@@ -1,0 +1,38 @@
+---
+import MediaPlaceholder from "./MediaPlaceholder.astro";
+
+interface Props {
+  href: string;
+  title: string;
+  location: string;
+  date: Date;
+  cover?: string;
+  blurb?: string;
+}
+const { href, title, location, date, cover, blurb } = Astro.props;
+const dateLabel = date.toLocaleDateString("en-US", { month: "short", year: "numeric" });
+---
+<a class="card trip-card" href={href}>
+  {cover
+    ? <img class="trip-cover" src={cover} alt={`${title} cover`} loading="lazy" />
+    : <MediaPlaceholder label="photo coming soon_" ratio="16 / 9" />}
+  <div class="trip-body">
+    <h3>{title}</h3>
+    <p class="trip-meta mono muted">{location} · {dateLabel}</p>
+    {blurb && <p class="trip-blurb">{blurb}</p>}
+    <span class="trip-arrow" aria-hidden="true">→</span>
+  </div>
+</a>
+
+<style>
+  .trip-card { display: flex; flex-direction: column; gap: 12px; padding: 12px; }
+  .trip-cover { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 10px; }
+  .trip-body { position: relative; padding: 0 6px 6px; }
+  .trip-meta { font-size: 0.78rem; margin-top: 4px; }
+  .trip-blurb { margin-top: 8px; font-size: 0.9rem; }
+  .trip-arrow {
+    position: absolute; top: 0; right: 6px;
+    color: var(--muted); transition: transform 0.15s;
+  }
+  .trip-card:hover .trip-arrow { transform: translateX(4px); color: var(--accent); }
+</style>
