@@ -2,7 +2,7 @@
 title: "Big Sur"
 location: "California, USA"
 date: 2025-06-02
-mapX: 16
+mapX: 16.7
 mapY: 30
 blurb: "Coast road, redwoods, and fog."
 ---
