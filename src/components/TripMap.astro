@@ -1,4 +1,6 @@
 ---
+import { WORLD_LAND_PATH } from "../data/world-land";
+
 interface Pin {
   href: string;
   title: string;
@@ -9,10 +11,12 @@ interface Props { pins: Pin[]; }
 const { pins } = Astro.props;
 ---
 <div class="trip-map" role="group" aria-label="Map of trips">
-  <!-- Stylized coordinate field. Decorative; pins are the interactive layer.
-       Drop a recolored world-continents SVG behind this later if desired -->
-  <svg class="trip-map__grid" viewBox="0 0 100 50" preserveAspectRatio="none" aria-hidden="true">
-    <g stroke="var(--border-hi)" stroke-width="0.15" fill="none" opacity="0.55">
+  <!-- Stylized world map. Decorative; pins are the interactive layer.
+       Land = Natural Earth 110m, projected equirectangular (see src/data/world-land.ts),
+       so pin mapX/mapY (lng/lat as %) land on the right continents. -->
+  <svg class="trip-map__bg" viewBox="0 0 100 50" preserveAspectRatio="none" aria-hidden="true">
+    <path class="trip-map__land" d={WORLD_LAND_PATH} />
+    <g class="trip-map__grid" stroke="var(--border-hi)" stroke-width="0.15" fill="none" opacity="0.4">
       <line x1="0" y1="12.5" x2="100" y2="12.5" />
       <line x1="0" y1="25"   x2="100" y2="25" />
       <line x1="0" y1="37.5" x2="100" y2="37.5" />
@@ -44,7 +48,13 @@ const { pins } = Astro.props;
     border-radius: var(--radius);
     overflow: hidden;
   }
-  .trip-map__grid { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .trip-map__bg   { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .trip-map__land {
+    fill: rgba(140,165,255,0.08);
+    stroke: rgba(150,175,255,0.32);
+    stroke-width: 0.12;
+    stroke-linejoin: round;
+  }
 
   .trip-pin {
     position: absolute;
