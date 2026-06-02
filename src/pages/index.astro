@@ -10,16 +10,32 @@ import MediaPlaceholder from "../components/MediaPlaceholder.astro";
     <!-- ─── Hero ──────────────────────────────────────────────────────── -->
     <section class="section hero-section">
       <div class="container reveal">
-        <div class="hero-eyebrow mono muted">student · developer · builder</div>
+        <div class="hero-eyebrow mono muted">student · developer</div>
         <h1>Siddharth<br /><span class="gradient-text">Bobba</span></h1>
         <p class="lead" style="margin-top: 20px; max-width: 520px;">
-          Studying Computer & Information Technology and Economics at Purdue,
-          with a focus on AI. I build tools that solve real problems.
+          Purdue student studying CIT and Economics with a focus on AI. I ship
+          native macOS and iOS apps — most recently DeDuper, on-device AI that
+          cleans up your photo library.
         </p>
         <div class="hero-links">
           <a class="btn btn-primary" href="/#projects">See my work</a>
           <a class="btn btn-secondary" href="https://linkedin.com/in/siddharth-bobba" target="_blank">LinkedIn</a>
           <a class="btn btn-secondary" href="https://github.com/siddharthdbobba" target="_blank">GitHub</a>
+        </div>
+        <div class="hero-now">
+          <span class="mono muted">now building</span>
+          <AppIcon label="DeDuper" size={28} radius={8}>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="3" y="3" width="13" height="13" rx="2" />
+              <path d="M8 21h11a2 2 0 0 0 2-2V8" />
+            </svg>
+          </AppIcon>
+          <AppIcon label="Sticker Map" size={28} radius={8}>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 21s-6-5.3-6-10a6 6 0 0 1 12 0c0 4.7-6 10-6 10Z" />
+              <circle cx="12" cy="11" r="2" />
+            </svg>
+          </AppIcon>
         </div>
       </div>
     </section>
@@ -163,6 +179,8 @@ import MediaPlaceholder from "../components/MediaPlaceholder.astro";
   .hero-section  { padding-top: 96px; padding-bottom: 80px; }
   .hero-eyebrow  { margin-bottom: 16px; font-size: 0.85rem; letter-spacing: 0.05em; }
   .hero-links    { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+  .hero-now { display: flex; align-items: center; gap: 10px; margin-top: 28px; }
+  .hero-now > span { font-size: 0.8rem; letter-spacing: 0.04em; }
 
   .project-card  { display: block; }
   .project-header { display: flex; align-items: center; gap: 14px; }
