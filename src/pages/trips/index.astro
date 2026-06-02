@@ -1,0 +1,73 @@
+---
+import { getCollection } from "astro:content";
+import Base from "../../layouts/Base.astro";
+import TripMap from "../../components/TripMap.astro";
+import TripCard from "../../components/TripCard.astro";
+
+const trips = (await getCollection("trips"))
+  .filter((t) => !t.data.draft)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+const pins = trips.map((t) => ({
+  href: `/trips/${t.id}`,
+  title: t.data.title,
+  mapX: t.data.mapX,
+  mapY: t.data.mapY,
+}));
+---
+<Base title="Trips — Siddharth Bobba" description="A map of where I've been, with photos and stories.">
+  <main>
+    <section class="section hero-section reveal">
+      <div class="container">
+        <div class="hero-eyebrow mono muted">travel · photos · field notes</div>
+        <h1>Trips</h1>
+        <p class="lead" style="margin-top: 16px; max-width: 480px;">
+          A map of where I've been — tap a pin or a card for the photos and the story.
+        </p>
+      </div>
+    </section>
+
+    <section class="section reveal" style="padding-top: 0;">
+      <div class="container">
+        <TripMap pins={pins} />
+      </div>
+    </section>
+
+    <section class="section reveal">
+      <div class="container">
+        {trips.length === 0 ? (
+          <p class="mono muted">trips coming soon_</p>
+        ) : (
+          <div class="trips-grid">
+            {trips.map((t) => (
+              <TripCard
+                href={`/trips/${t.id}`}
+                title={t.data.title}
+                location={t.data.location}
+                date={t.data.date}
+                cover={t.data.cover}
+                blurb={t.data.blurb}
+              />
+            ))}
+          </div>
+        )}
+      </div>
+    </section>
+
+    <section class="section back-section">
+      <div class="container" style="text-align: center;">
+        <a class="btn btn-secondary" href="/">← Back to portfolio</a>
+      </div>
+    </section>
+  </main>
+</Base>
+
+<style>
+  .hero-section { padding-top: 80px; padding-bottom: 32px; }
+  .hero-eyebrow { margin-bottom: 16px; font-size: 0.85rem; letter-spacing: 0.05em; }
+  .trips-grid   { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .back-section { padding-top: 24px; padding-bottom: 48px; }
+
+  @media (max-width: 700px) { .trips-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 480px) { .trips-grid { grid-template-columns: 1fr; } .hero-section { padding-top: 56px; } }
+</style>
