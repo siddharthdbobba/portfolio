@@ -1,0 +1,91 @@
+---
+interface Pin {
+  href: string;
+  title: string;
+  mapX: number; // % of map width
+  mapY: number; // % of map height
+}
+interface Props { pins: Pin[]; }
+const { pins } = Astro.props;
+---
+<div class="trip-map" role="group" aria-label="Map of trips">
+  <!-- Stylized coordinate field. Decorative; pins are the interactive layer.
+       Drop a recolored world-continents SVG behind this later if desired -->
+  <svg class="trip-map__grid" viewBox="0 0 100 50" preserveAspectRatio="none" aria-hidden="true">
+    <g stroke="var(--border-hi)" stroke-width="0.15" fill="none" opacity="0.55">
+      <line x1="0" y1="12.5" x2="100" y2="12.5" />
+      <line x1="0" y1="25"   x2="100" y2="25" />
+      <line x1="0" y1="37.5" x2="100" y2="37.5" />
+      <line x1="16.6" y1="0" x2="16.6" y2="50" />
+      <line x1="33.3" y1="0" x2="33.3" y2="50" />
+      <line x1="50"   y1="0" x2="50"   y2="50" />
+      <line x1="66.6" y1="0" x2="66.6" y2="50" />
+      <line x1="83.3" y1="0" x2="83.3" y2="50" />
+    </g>
+  </svg>
+
+  {pins.map((p) => (
+    <a class="trip-pin" href={p.href} aria-label={p.title} style={`left:${p.mapX}%; top:${p.mapY}%`}>
+      <span class="trip-pin__dot"></span>
+      <span class="trip-pin__label">{p.title}</span>
+    </a>
+  ))}
+</div>
+
+<style>
+  .trip-map {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 2 / 1;
+    background:
+      radial-gradient(55% 75% at 50% 35%, rgba(91,140,255,0.12), transparent 70%),
+      var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .trip-map__grid { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+  .trip-pin {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    z-index: 1;
+  }
+  .trip-pin__dot {
+    width: 12px; height: 12px; border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 0 4px rgba(91,140,255,0.18), 0 0 14px 2px rgba(91,140,255,0.55);
+    flex-shrink: 0;
+    animation: pin-pulse 2.4s ease-in-out infinite;
+  }
+  .trip-pin__label {
+    font-family: var(--font-display);
+    font-size: 0.72rem;
+    color: var(--text);
+    background: rgba(8,8,11,0.72);
+    border: 1px solid var(--border);
+    padding: 2px 8px;
+    border-radius: 20px;
+    white-space: nowrap;
+    opacity: 0;
+    transform: translateX(-4px);
+    transition: opacity 0.15s ease, transform 0.15s ease;
+    pointer-events: none;
+  }
+  .trip-pin:hover .trip-pin__label,
+  .trip-pin:focus-visible .trip-pin__label {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  @keyframes pin-pulse {
+    0%, 100% { box-shadow: 0 0 0 4px rgba(91,140,255,0.18), 0 0 14px 2px rgba(91,140,255,0.55); }
+    50%      { box-shadow: 0 0 0 6px rgba(91,140,255,0.10), 0 0 22px 4px rgba(91,140,255,0.78); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .trip-pin__dot { animation: none; }
+  }
+</style>
