@@ -1,0 +1,35 @@
+---
+interface Props {
+  src?: string;       // path to a real icon image (e.g. "/trips/...") — optional
+  label: string;      // accessible name, e.g. "DeDuper"
+  glyph?: string;     // fallback text mark, e.g. "D" (ignored if a slot is provided)
+  size?: number;      // px, default 46
+  radius?: number;    // px, default 12
+}
+const { src, label, glyph = "", size = 46, radius = 12 } = Astro.props;
+const box = `width:${size}px;height:${size}px;border-radius:${radius}px`;
+---
+{src ? (
+  <img class="app-icon" src={src} alt={`${label} icon`} style={box} width={size} height={size} />
+) : (
+  <span class="app-icon app-icon--mark" style={box} role="img" aria-label={`${label} icon`}>
+    <slot>{glyph}</slot>
+  </span>
+)}
+
+<style>
+  .app-icon { flex-shrink: 0; display: block; object-fit: cover; }
+  .app-icon--mark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--grad);
+    color: #fff;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.05rem;
+    line-height: 1;
+    box-shadow: 0 8px 20px -8px rgba(59,130,246,0.6);
+  }
+  .app-icon--mark :global(svg) { width: 52%; height: 52%; }
+</style>
