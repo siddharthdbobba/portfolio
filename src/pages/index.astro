@@ -1,5 +1,7 @@
 ---
 import Base from "../layouts/Base.astro";
+import AppIcon from "../components/AppIcon.astro";
+import MediaPlaceholder from "../components/MediaPlaceholder.astro";
 ---
 
 <Base title="Siddharth Bobba">
@@ -28,8 +30,14 @@ import Base from "../layouts/Base.astro";
         <h2 class="reveal" style="margin-bottom: 32px;">Projects</h2>
 
         <a class="card project-card reveal" href="/deduper">
-          <div class="project-header">
-            <div class="project-icon">✦</div>
+          <MediaPlaceholder label="DeDuper screenshot coming soon_" ratio="16 / 9" />
+          <div class="project-header" style="margin-top: 16px;">
+            <AppIcon label="DeDuper" size={46}>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="3" y="3" width="13" height="13" rx="2" />
+                <path d="M8 21h11a2 2 0 0 0 2-2V8" />
+              </svg>
+            </AppIcon>
             <div class="project-meta">
               <h3>DeDuper</h3>
               <span class="mono muted" style="font-size: 0.8rem;">macOS · iOS</span>
@@ -50,8 +58,14 @@ import Base from "../layouts/Base.astro";
         </a>
 
         <a class="card project-card reveal" href="https://stickers.siddharthbobba.com" target="_blank" rel="noopener" style="margin-top: 16px; transition-delay: 0.08s;">
-          <div class="project-header">
-            <div class="project-icon">▲</div>
+          <MediaPlaceholder label="Sticker Map preview coming soon_" ratio="16 / 9" />
+          <div class="project-header" style="margin-top: 16px;">
+            <AppIcon label="Sticker Map" size={46}>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 21s-6-5.3-6-10a6 6 0 0 1 12 0c0 4.7-6 10-6 10Z" />
+                <circle cx="12" cy="11" r="2" />
+              </svg>
+            </AppIcon>
             <div class="project-meta">
               <h3>Sticker Map</h3>
               <span class="mono muted" style="font-size: 0.8rem;">Purdue Outing Club</span>
@@ -146,14 +160,6 @@ import Base from "../layouts/Base.astro";
 
   .project-card  { display: block; }
   .project-header { display: flex; align-items: center; gap: 14px; }
-  .project-icon  {
-    width: 46px; height: 46px;
-    background: var(--grad);
-    border-radius: 12px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 1.3rem; color: white; flex-shrink: 0;
-    box-shadow: 0 8px 20px -8px rgba(59,130,246,0.6);
-  }
   .project-meta  { flex: 1; }
   .project-arrow { color: var(--muted); font-size: 1.2rem; transition: transform 0.15s; }
   .project-card:hover .project-arrow { transform: translateX(4px); }
