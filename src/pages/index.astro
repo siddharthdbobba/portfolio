@@ -70,6 +70,14 @@ import Base from "../layouts/Base.astro";
           </div>
         </a>
 
+        <a class="card trips-teaser reveal" href="/trips" style="margin-top: 16px; transition-delay: 0.12s;">
+          <div class="trips-teaser__text">
+            <h3>Trips</h3>
+            <p class="mono muted" style="font-size: 0.8rem; margin-top: 2px;">photos &amp; field notes from the road</p>
+          </div>
+          <span class="trips-teaser__arrow" aria-hidden="true">→</span>
+        </a>
+
         <div class="more-hint">
           <p class="mono muted" style="font-size: 0.85rem;">more coming soon_</p>
         </div>
@@ -151,6 +159,9 @@ import Base from "../layouts/Base.astro";
   .project-card:hover .project-arrow { transform: translateX(4px); }
   .project-tags  { display: flex; flex-wrap: wrap; gap: 6px; }
   .more-hint     { padding: 28px 0 4px; }
+  .trips-teaser { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+  .trips-teaser__arrow { color: var(--muted); font-size: 1.2rem; transition: transform 0.15s; }
+  .trips-teaser:hover .trips-teaser__arrow { transform: translateX(4px); color: var(--accent); }
 
   .contact-block { text-align: center; }
   .contact-email { display: inline-block; margin-top: 20px; }
