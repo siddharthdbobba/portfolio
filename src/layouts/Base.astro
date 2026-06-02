@@ -43,6 +43,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
         <ul class="nav-links">
           <li><a href="/#projects">projects</a></li>
           <li><a href="/#about">about</a></li>
+          <li><a href="/#contact">contact</a></li>
           <li><a href="https://github.com/siddharthdbobba" target="_blank">github</a></li>
         </ul>
       </div>
@@ -52,7 +53,8 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
     <footer>
       <div class="container">
-        <p>© {new Date().getFullYear()} Siddharth Bobba</p>
+        <p><a href="mailto:siddharthdbobba@gmail.com" class="link-accent">siddharthdbobba@gmail.com</a></p>
+        <p style="margin-top: 6px;">© {new Date().getFullYear()} Siddharth Bobba</p>
       </div>
     </footer>
 

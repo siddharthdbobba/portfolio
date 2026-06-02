@@ -240,6 +240,10 @@ footer {
   font-size: 0.85rem;
   color: var(--muted);
 }
+/* Muted link that brightens to accent on hover (footer + contact). Base
+   color comes from context — footer inheritance or the .muted class. */
+.link-accent { transition: color 0.15s; }
+.link-accent:hover { color: var(--accent); }
 
 /* ─── Scroll reveal ─────────────────────────────────────────────────────── */
 /* Hidden state only applies once JS has flagged the document ready, so the   */
