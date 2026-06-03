@@ -1,0 +1,42 @@
+---
+// src/components/worldcup/PipelineStrip.astro
+import type { Snapshot } from "../../lib/worldcup-types";
+interface Props { snapshot: Snapshot }
+const { snapshot } = Astro.props;
+const teamCount = Object.keys(snapshot.ratings).length;
+const pricedCount = Object.keys(snapshot.market).length;
+const stages = [
+  { label: "Draw", value: `${Object.keys(snapshot.draw).length} groups` },
+  { label: "Elo ratings", value: `${teamCount} teams` },
+  { label: "Market", value: `${pricedCount} priced` },
+  { label: "Monte Carlo", value: `${snapshot.meta.n_sims.toLocaleString()} sims` },
+  { label: "Blend", value: "model × market" },
+  { label: "Kelly", value: `${snapshot.bets.length} bets` },
+];
+---
+<ol class="wc-pipeline">
+  {stages.map((s, i) => (
+    <li class="wc-stage card">
+      <span class="wc-stage-label mono muted">{s.label}</span>
+      <span class="wc-stage-value">{s.value}</span>
+      {i < stages.length - 1 && <span class="wc-stage-arrow" aria-hidden="true">→</span>}
+    </li>
+  ))}
+</ol>
+<style>
+  .wc-pipeline {
+    list-style: none; display: flex; flex-wrap: wrap; gap: 10px;
+    padding: 0; margin: 0;
+  }
+  .wc-stage {
+    position: relative; flex: 1 1 120px; padding: 12px 14px;
+    display: flex; flex-direction: column; gap: 2px;
+  }
+  .wc-stage-label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.04em; }
+  .wc-stage-value { font-weight: 600; }
+  .wc-stage-arrow {
+    position: absolute; right: -11px; top: 50%; transform: translateY(-50%);
+    color: var(--muted); z-index: 1;
+  }
+  @media (max-width: 640px) { .wc-stage-arrow { display: none; } }
+</style>

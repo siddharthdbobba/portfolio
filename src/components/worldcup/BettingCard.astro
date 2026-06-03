@@ -1,0 +1,55 @@
+---
+// src/components/worldcup/BettingCard.astro
+import type { Snapshot } from "../../lib/worldcup-types";
+interface Props { snapshot: Snapshot }
+const { snapshot } = Astro.props;
+const { bets, bankroll, staked, reserve } = snapshot;
+const money = (v: number) => `$${v.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+const pct = (v: number) => `${(v * 100).toFixed(1)}%`;
+const signed = (v: number) => `${v >= 0 ? "+" : ""}${pct(v)}`;
+const DISCLAIMER =
+  "Model-based estimate; prediction markets are highly efficient. For education only — never stake more than you can afford to lose.";
+---
+<div class="wc-betting">
+  <div class="wc-betting-head">
+    <h3>Betting card</h3>
+    {bankroll != null && (
+      <span class="mono muted">
+        bankroll {money(bankroll)} · staked {money(staked ?? 0)} · reserve {money(reserve ?? 0)}
+      </span>
+    )}
+  </div>
+  {bets.length === 0 ? (
+    <p class="mono muted">No value bets at current prices.</p>
+  ) : (
+    <div class="wc-bets">
+      {bets.map((b) => (
+        <div class="wc-bet card">
+          <div class="wc-bet-team">{b.team}</div>
+          <dl class="wc-bet-stats mono">
+            <div><dt>ask</dt><dd>{b.ask.toFixed(2)}</dd></div>
+            <div><dt>edge</dt><dd class="wc-pos">{signed(b.edge)}</dd></div>
+            <div><dt>EV</dt><dd class="wc-pos">{signed(b.ev_pct)}</dd></div>
+            <div><dt>stake</dt><dd>{money(b.stake)}</dd></div>
+            <div><dt>profit</dt><dd>{money(b.potential_profit)}</dd></div>
+          </dl>
+        </div>
+      ))}
+    </div>
+  )}
+  <p class="wc-disclaimer mono muted">{DISCLAIMER}</p>
+</div>
+<style>
+  .wc-betting { display: flex; flex-direction: column; gap: 12px; }
+  .wc-betting-head { display: flex; flex-wrap: wrap; gap: 8px; align-items: baseline; justify-content: space-between; }
+  .wc-betting-head span { font-size: 0.78rem; }
+  .wc-bets { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+  .wc-bet { padding: 14px; display: flex; flex-direction: column; gap: 10px; }
+  .wc-bet-team { font-weight: 600; }
+  .wc-bet-stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px 14px; margin: 0; font-size: 0.78rem; }
+  .wc-bet-stats div { display: flex; justify-content: space-between; gap: 8px; }
+  .wc-bet-stats dt { color: var(--muted); }
+  .wc-bet-stats dd { margin: 0; }
+  .wc-pos { color: var(--green); }
+  .wc-disclaimer { font-size: 0.72rem; line-height: 1.5; }
+</style>

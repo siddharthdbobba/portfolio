@@ -1,0 +1,41 @@
+---
+// src/components/worldcup/GroupGrid.astro
+import type { Snapshot } from "../../lib/worldcup-types";
+interface Props { snapshot: Snapshot }
+const { snapshot } = Astro.props;
+const titleOdds = new Map(snapshot.forecasts.map((f) => [f.team, f.blended_pct]));
+const maxOdds = Math.max(0.01, ...snapshot.forecasts.map((f) => f.blended_pct));
+const groups = Object.entries(snapshot.draw).sort(([a], [b]) => a.localeCompare(b));
+const pct = (v: number) => `${(v * 100).toFixed(1)}%`;
+---
+<div class="wc-groups">
+  {groups.map(([label, teams]) => (
+    <div class="wc-group card">
+      <div class="wc-group-label mono muted">Group {label}</div>
+      <ul class="wc-group-teams">
+        {teams.map((team) => {
+          const odds = titleOdds.get(team) ?? 0;
+          return (
+            <li class="wc-group-team">
+              <span class="wc-group-dot" style={`opacity:${0.12 + (odds / maxOdds) * 0.88}`}></span>
+              <span class="wc-group-name">{team}</span>
+              <span class="wc-group-odds mono muted">{pct(odds)}</span>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  ))}
+</div>
+<style>
+  .wc-groups {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px;
+  }
+  .wc-group { padding: 12px 14px; }
+  .wc-group-label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px; }
+  .wc-group-teams { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 6px; }
+  .wc-group-team { display: grid; grid-template-columns: 12px 1fr auto; gap: 8px; align-items: center; }
+  .wc-group-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--grad); }
+  .wc-group-name { font-size: 0.88rem; }
+  .wc-group-odds { font-size: 0.72rem; }
+</style>

@@ -1,0 +1,50 @@
+---
+// src/components/worldcup/AdvancementFunnel.astro
+// Per-team probability of reaching each knockout stage (R32 -> Champion),
+// for the top teams by championship probability.
+import type { Snapshot } from "../../lib/worldcup-types";
+import { ADVANCEMENT_STAGES } from "../../lib/worldcup-types";
+interface Props { snapshot: Snapshot; top?: number }
+const { snapshot, top = 8 } = Astro.props;
+const teams = snapshot.forecasts.slice(0, top).map((f) => f.team);
+const pct = (v: number) => `${(v * 100).toFixed(0)}%`;
+---
+<div class="wc-funnel">
+  <div class="wc-funnel-head mono muted">
+    <span>Team</span>
+    {ADVANCEMENT_STAGES.map((s) => <span class="wc-funnel-col">{s.label}</span>)}
+  </div>
+  {teams.map((team) => {
+    const adv = snapshot.advancement[team];
+    return (
+      <div class="wc-funnel-row">
+        <span class="wc-funnel-team">{team}</span>
+        {ADVANCEMENT_STAGES.map((s) => {
+          const v = adv ? adv[s.key] : 0;
+          return (
+            <span class="wc-funnel-cell" title={`${s.label}: ${pct(v)}`}>
+              <span class="wc-funnel-fill" style={`opacity:${0.15 + v * 0.85}`}></span>
+              <span class="wc-funnel-num mono">{pct(v)}</span>
+            </span>
+          );
+        })}
+      </div>
+    );
+  })}
+</div>
+<style>
+  .wc-funnel { display: flex; flex-direction: column; gap: 4px; overflow-x: auto; }
+  .wc-funnel-head, .wc-funnel-row {
+    display: grid; grid-template-columns: 120px repeat(6, 1fr); gap: 4px; align-items: center;
+    min-width: 520px;
+  }
+  .wc-funnel-head { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.03em; padding-bottom: 4px; }
+  .wc-funnel-col { text-align: center; }
+  .wc-funnel-team { font-weight: 600; font-size: 0.9rem; }
+  .wc-funnel-cell {
+    position: relative; display: flex; align-items: center; justify-content: center;
+    height: 34px; border-radius: 6px; overflow: hidden; border: 1px solid var(--border);
+  }
+  .wc-funnel-fill { position: absolute; inset: 0; background: var(--grad); }
+  .wc-funnel-num { position: relative; font-size: 0.74rem; color: var(--text); }
+</style>
