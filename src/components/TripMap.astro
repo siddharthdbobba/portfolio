@@ -29,7 +29,7 @@ const { pins } = Astro.props;
   </svg>
 
   {pins.map((p) => (
-    <a class="trip-pin" href={p.href} aria-label={p.title} style={`left:${p.mapX}%; top:${p.mapY}%`}>
+    <a class={`trip-pin${p.mapX > 85 ? " trip-pin--flip" : ""}`} href={p.href} aria-label={p.title} style={`left:${p.mapX}%; top:${p.mapY}%`}>
       <span class="trip-pin__dot"></span>
       <span class="trip-pin__label">{p.title}</span>
     </a>
@@ -71,7 +71,7 @@ const { pins } = Astro.props;
     width: 14px; height: 14px;
     border-radius: 50%;
     background: var(--accent);
-    border: 2px solid #eaf1ff; /* light ring for contrast against the dark map */
+    border: 2px solid var(--ring); /* light ring for contrast against the dark map */
     box-shadow: 0 0 0 4px rgba(91,140,255,0.30), 0 0 18px 5px rgba(91,140,255,0.75);
     animation: pin-pulse 2.4s ease-in-out infinite;
   }
@@ -95,6 +95,17 @@ const { pins } = Astro.props;
   .trip-pin:hover .trip-pin__label,
   .trip-pin:focus-visible .trip-pin__label {
     opacity: 1;
+    transform: translateY(-50%) translateX(0);
+  }
+  /* Pins near the right edge open their label to the LEFT so it isn't clipped
+     by the map's overflow:hidden. */
+  .trip-pin--flip .trip-pin__label {
+    left: auto;
+    right: 18px;
+    transform: translateY(-50%) translateX(4px);
+  }
+  .trip-pin--flip:hover .trip-pin__label,
+  .trip-pin--flip:focus-visible .trip-pin__label {
     transform: translateY(-50%) translateX(0);
   }
 

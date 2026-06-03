@@ -12,6 +12,7 @@
   --accent:    #5b8cff;
   --accent-2:  #60a5fa;
   --accent-dim:#1d4ed8;
+  --ring:      #eaf1ff;   /* near-white highlight ring (e.g. trip-map pins) */
   --green:     #22c55e;
 
   /* Signature gradient — used for identity, icons, primary CTAs */
