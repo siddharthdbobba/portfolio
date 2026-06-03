@@ -1,0 +1,89 @@
+---
+// src/pages/worldcup.astro
+export const prerender = false; // MUST be on-demand: the gate runs per request.
+import Base from "../layouts/Base.astro";
+import { verifyToken } from "../lib/worldcup-auth";
+import { loadSnapshot, isEmptySnapshot } from "../lib/worldcup-data";
+import { COOKIE_NAME } from "./api/worldcup-login";
+import RunMeta from "../components/worldcup/RunMeta.astro";
+import EdgeChart from "../components/worldcup/EdgeChart.astro";
+
+const MAX_AGE_MS = 1000 * 60 * 60 * 24 * 30;
+const env = Astro.locals.runtime?.env ?? {};
+const cookieSecret = env.WORLDCUP_COOKIE_SECRET ?? "";
+const token = Astro.cookies.get(COOKIE_NAME)?.value;
+const authed = await verifyToken(token, cookieSecret, MAX_AGE_MS, Date.now());
+
+const errorCode = Astro.url.searchParams.get("error");
+const errorMsg =
+  errorCode === "1" ? "Incorrect password." :
+  errorCode === "config" ? "Server is not configured. Set the secrets and redeploy." :
+  null;
+
+let snapshot = null;
+let unavailable = false;
+if (authed) {
+  const loaded = loadSnapshot();
+  snapshot = loaded.snapshot;
+  unavailable = loaded.isSample || isEmptySnapshot(snapshot);
+}
+---
+
+<Base title="World Cup Predictor" description="A look inside the 2026 World Cup forecasting model.">
+  {!authed ? (
+    <main>
+      <section class="section reveal">
+        <div class="container wc-gate">
+          <h1>World Cup Predictor</h1>
+          <p class="lead" style="max-width: 440px;">
+            This page is locked. Enter the password to see the model.
+          </p>
+          {errorMsg && <p class="wc-error mono">{errorMsg}</p>}
+          <form class="wc-login card" method="POST" action="/api/worldcup-login">
+            <label class="mono muted" for="wc-pw">password</label>
+            <input id="wc-pw" name="password" type="password" autocomplete="current-password" required autofocus />
+            <button class="btn btn-primary" type="submit">Unlock</button>
+          </form>
+        </div>
+      </section>
+    </main>
+  ) : (
+    <main>
+      <section class="section reveal">
+        <div class="container">
+          <h1>World Cup Predictor</h1>
+          {unavailable ? (
+            <p class="wc-error mono">Snapshot unavailable — run the export and redeploy.</p>
+          ) : (
+            <div class="wc-dash">
+              <p class="lead" style="max-width: 560px;">
+                A live look inside the 2026 World Cup model: how it rates teams,
+                simulates the tournament, and where it disagrees with the market.
+              </p>
+              <RunMeta snapshot={snapshot!} />
+              <div class="wc-block"><h2>Model vs market</h2><EdgeChart snapshot={snapshot!} /></div>
+            </div>
+          )}
+        </div>
+      </section>
+    </main>
+  )}
+</Base>
+
+<style>
+  .wc-gate { display: flex; flex-direction: column; gap: 18px; }
+  .wc-login {
+    display: flex; flex-direction: column; gap: 12px;
+    max-width: 360px; padding: 22px;
+  }
+  .wc-login input {
+    background: var(--bg); color: var(--text);
+    border: 1px solid var(--border); border-radius: 8px;
+    padding: 10px 12px; font: inherit;
+  }
+  .wc-login input:focus { outline: none; border-color: var(--accent); }
+  .wc-error { color: #f87171; }
+  .wc-dash { display: flex; flex-direction: column; gap: 12px; }
+  .wc-block { margin-top: 26px; display: flex; flex-direction: column; gap: 14px; }
+  .wc-block h2 { font-size: 1.15rem; }
+</style>
