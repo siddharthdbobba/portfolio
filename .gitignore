@@ -28,3 +28,7 @@ pnpm-debug.log*
 .dev.vars*
 !.dev.vars.example
 !.env.example
+
+# World Cup predictor snapshot (generated locally, bundled into the Worker at
+# build time; never committed — this repo is public).
+src/data/worldcup-snapshot.json
