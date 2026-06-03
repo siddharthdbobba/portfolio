@@ -9,14 +9,36 @@ interface Pin {
 }
 interface Props { pins: Pin[]; }
 const { pins } = Astro.props;
+
+// --- Static zoom -------------------------------------------------------------
+// Land is drawn in a full-world equirectangular viewBox (x:0-100 = lng -180..180,
+// y:0-50 = lat 90..-90). We crop to a 2:1 sub-window to zoom in, and remap each
+// pin into that window so it stays aligned with the land. Tweak these two:
+const ZOOM = 1.4;                 // 1 = whole world; raise to zoom in more
+const FOCUS = { x: 38, y: 20 };   // view centre in world coords (x:0-100, y:0-50)
+
+const vw = 100 / ZOOM;
+const vh = 50 / ZOOM;             // keeps the container's 2:1 aspect
+const vx = Math.max(0, Math.min(100 - vw, FOCUS.x - vw / 2));
+const vy = Math.max(0, Math.min(50 - vh, FOCUS.y - vh / 2));
+const viewBox = `${vx} ${vy} ${vw} ${vh}`;
+const gridStroke = 0.15 / ZOOM;   // keep stroke weight constant across zoom levels
+const landStroke = 0.12 / ZOOM;
+
+// pin (mapX% width, mapY% height of full world) -> position within the window
+const placed = pins.map((p) => ({
+  ...p,
+  left: ((p.mapX - vx) / vw) * 100,
+  top: ((p.mapY * 0.5 - vy) / vh) * 100,
+}));
 ---
 <div class="trip-map" role="group" aria-label="Map of trips">
   <!-- Stylized world map. Decorative; pins are the interactive layer.
        Land = Natural Earth 110m, projected equirectangular (see src/data/world-land.ts),
        so pin mapX/mapY (lng/lat as %) land on the right continents. -->
-  <svg class="trip-map__bg" viewBox="0 0 100 50" preserveAspectRatio="none" aria-hidden="true">
-    <path class="trip-map__land" d={WORLD_LAND_PATH} />
-    <g class="trip-map__grid" stroke="var(--border-hi)" stroke-width="0.15" fill="none" opacity="0.4">
+  <svg class="trip-map__bg" viewBox={viewBox} preserveAspectRatio="none" aria-hidden="true">
+    <path class="trip-map__land" d={WORLD_LAND_PATH} stroke-width={landStroke} />
+    <g class="trip-map__grid" stroke="var(--border-hi)" stroke-width={gridStroke} fill="none" opacity="0.4">
       <line x1="0" y1="12.5" x2="100" y2="12.5" />
       <line x1="0" y1="25"   x2="100" y2="25" />
       <line x1="0" y1="37.5" x2="100" y2="37.5" />
@@ -28,8 +50,8 @@ const { pins } = Astro.props;
     </g>
   </svg>
 
-  {pins.map((p) => (
-    <a class={`trip-pin${p.mapX > 85 ? " trip-pin--flip" : ""}`} href={p.href} aria-label={p.title} style={`left:${p.mapX}%; top:${p.mapY}%`}>
+  {placed.map((p) => (
+    <a class={`trip-pin${p.left > 85 ? " trip-pin--flip" : ""}`} href={p.href} aria-label={p.title} style={`left:${p.left}%; top:${p.top}%`}>
       <span class="trip-pin__dot"></span>
       <span class="trip-pin__label">{p.title}</span>
     </a>
@@ -52,7 +74,6 @@ const { pins } = Astro.props;
   .trip-map__land {
     fill: rgba(140,165,255,0.08);
     stroke: rgba(150,175,255,0.32);
-    stroke-width: 0.12;
     stroke-linejoin: round;
   }
 
