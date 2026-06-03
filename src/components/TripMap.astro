@@ -187,7 +187,7 @@ const placed = pins.map((p) => ({
     // wheel zoom — only with a modifier so plain page-scroll passes through.
     // Scale by the wheel delta so trackpad pinch (many tiny events) and mouse
     // wheel (few big ticks) both zoom gently. Smaller ZOOM_SPEED = slower.
-    const ZOOM_SPEED = 0.0008;
+    const ZOOM_SPEED = 0.0014;
     map.addEventListener("wheel", (e) => {
       if (!e.ctrlKey && !e.metaKey) return;
       e.preventDefault();
