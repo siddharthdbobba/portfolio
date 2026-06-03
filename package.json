@@ -11,6 +11,8 @@
     "preview": "npm run build && wrangler dev",
     "astro": "astro",
     "generate-types": "wrangler types",
+    "gen:map": "node scripts/gen-world-map.mjs",
+    "verify:pins": "node scripts/verify-trip-pins.mjs",
     "deploy": "npm run build && wrangler deploy"
   },
   "dependencies": {
