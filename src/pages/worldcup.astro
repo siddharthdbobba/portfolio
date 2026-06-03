@@ -7,6 +7,10 @@ import { loadSnapshot, isEmptySnapshot } from "../lib/worldcup-data";
 import { COOKIE_NAME } from "./api/worldcup-login";
 import RunMeta from "../components/worldcup/RunMeta.astro";
 import EdgeChart from "../components/worldcup/EdgeChart.astro";
+import PipelineStrip from "../components/worldcup/PipelineStrip.astro";
+import AdvancementFunnel from "../components/worldcup/AdvancementFunnel.astro";
+import GroupGrid from "../components/worldcup/GroupGrid.astro";
+import BettingCard from "../components/worldcup/BettingCard.astro";
 // Astro v6 removed Astro.locals.runtime.env; secrets come from the Workers runtime.
 import { env } from "cloudflare:workers";
 
@@ -58,11 +62,19 @@ if (authed) {
           ) : (
             <div class="wc-dash">
               <p class="lead" style="max-width: 560px;">
-                A live look inside the 2026 World Cup model: how it rates teams,
-                simulates the tournament, and where it disagrees with the market.
+                A live look inside the 2026 World Cup model: how it draws the field,
+                rates the teams, simulates the tournament, and where it disagrees with
+                the betting market.
               </p>
               <RunMeta snapshot={snapshot!} />
+
+              <div class="wc-block"><h2>The pipeline</h2><PipelineStrip snapshot={snapshot!} /></div>
               <div class="wc-block"><h2>Model vs market</h2><EdgeChart snapshot={snapshot!} /></div>
+              <div class="wc-block"><h2>Inside the Monte Carlo</h2><AdvancementFunnel snapshot={snapshot!} /></div>
+              <div class="wc-block"><h2>The draw</h2><GroupGrid snapshot={snapshot!} /></div>
+              {snapshot!.bankroll != null && (
+                <div class="wc-block"><BettingCard snapshot={snapshot!} /></div>
+              )}
             </div>
           )}
         </div>
