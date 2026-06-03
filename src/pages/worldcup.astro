@@ -7,9 +7,10 @@ import { loadSnapshot, isEmptySnapshot } from "../lib/worldcup-data";
 import { COOKIE_NAME } from "./api/worldcup-login";
 import RunMeta from "../components/worldcup/RunMeta.astro";
 import EdgeChart from "../components/worldcup/EdgeChart.astro";
+// Astro v6 removed Astro.locals.runtime.env; secrets come from the Workers runtime.
+import { env } from "cloudflare:workers";
 
 const MAX_AGE_MS = 1000 * 60 * 60 * 24 * 30;
-const env = Astro.locals.runtime?.env ?? {};
 const cookieSecret = env.WORLDCUP_COOKIE_SECRET ?? "";
 const token = Astro.cookies.get(COOKIE_NAME)?.value;
 const authed = await verifyToken(token, cookieSecret, MAX_AGE_MS, Date.now());
