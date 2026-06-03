@@ -13,7 +13,8 @@
     "generate-types": "wrangler types",
     "gen:map": "node scripts/gen-world-map.mjs",
     "verify:pins": "node scripts/verify-trip-pins.mjs",
-    "deploy": "npm run build && wrangler deploy"
+    "deploy": "npm run build && wrangler deploy",
+    "test": "vitest run"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^13.5.5",
@@ -22,6 +23,7 @@
     "astro": "^6.3.8"
   },
   "devDependencies": {
+    "vitest": "^4.1.8",
     "wrangler": "^4.95.0"
   },
   "overrides": {
