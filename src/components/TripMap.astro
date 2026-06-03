@@ -61,15 +61,18 @@ const { pins } = Astro.props;
      never adds width to the pin (which would shove the dot off the coordinate). */
   .trip-pin {
     position: absolute;
-    width: 12px;
-    height: 12px;
+    width: 14px;
+    height: 14px;
     transform: translate(-50%, -50%);
     z-index: 1;
   }
   .trip-pin__dot {
-    width: 12px; height: 12px; border-radius: 50%;
+    display: block;            /* span is inline by default — block makes width/height/radius apply */
+    width: 14px; height: 14px;
+    border-radius: 50%;
     background: var(--accent);
-    box-shadow: 0 0 0 4px rgba(91,140,255,0.18), 0 0 14px 2px rgba(91,140,255,0.55);
+    border: 2px solid #eaf1ff; /* light ring for contrast against the dark map */
+    box-shadow: 0 0 0 4px rgba(91,140,255,0.30), 0 0 18px 5px rgba(91,140,255,0.75);
     animation: pin-pulse 2.4s ease-in-out infinite;
   }
   .trip-pin__label {
@@ -96,8 +99,8 @@ const { pins } = Astro.props;
   }
 
   @keyframes pin-pulse {
-    0%, 100% { box-shadow: 0 0 0 4px rgba(91,140,255,0.18), 0 0 14px 2px rgba(91,140,255,0.55); }
-    50%      { box-shadow: 0 0 0 6px rgba(91,140,255,0.10), 0 0 22px 4px rgba(91,140,255,0.78); }
+    0%, 100% { box-shadow: 0 0 0 4px rgba(91,140,255,0.30), 0 0 18px 5px rgba(91,140,255,0.65); }
+    50%      { box-shadow: 0 0 0 8px rgba(91,140,255,0.14), 0 0 28px 7px rgba(91,140,255,0.9); }
   }
   @media (prefers-reduced-motion: reduce) {
     .trip-pin__dot { animation: none; }
