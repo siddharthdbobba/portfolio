@@ -1,0 +1,17 @@
+---
+// src/components/worldcup/RunMeta.astro
+import type { Snapshot } from "../../lib/worldcup-types";
+interface Props { snapshot: Snapshot }
+const { snapshot } = Astro.props;
+const m = snapshot.meta;
+const asOf = new Date(m.generated_at).toLocaleString("en-US", {
+  dateStyle: "medium", timeStyle: "short",
+});
+---
+<p class="wc-meta mono muted">
+  as of {asOf} · {m.n_sims.toLocaleString()} sims · seed {m.seed} ·
+  Kelly {m.kelly_fraction}× · sources: {m.sources.join(", ")}
+</p>
+<style>
+  .wc-meta { font-size: 0.78rem; }
+</style>
