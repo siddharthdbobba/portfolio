@@ -4,41 +4,47 @@ import { WORLD_LAND_PATH } from "../data/world-land";
 interface Pin {
   href: string;
   title: string;
-  mapX: number; // % of map width
-  mapY: number; // % of map height
+  mapX: number; // % of map width  (0-100, = world longitude)
+  mapY: number; // % of map height (0-100, = world latitude)
 }
 interface Props { pins: Pin[]; }
 const { pins } = Astro.props;
 
-// --- Static zoom -------------------------------------------------------------
-// Land is drawn in a full-world equirectangular viewBox (x:0-100 = lng -180..180,
-// y:0-50 = lat 90..-90). We crop to a 2:1 sub-window to zoom in, and remap each
-// pin into that window so it stays aligned with the land. Tweak these two:
-const ZOOM = 1.4;                 // 1 = whole world; raise to zoom in more
-const FOCUS = { x: 38, y: 20 };   // view centre in world coords (x:0-100, y:0-50)
-
+// Default / reset view window, in world viewBox coords (x:0-100, y:0-50).
+// Users pan + zoom from here; this is also the no-JS fallback framing.
+const ZOOM = 1.4;
+const FOCUS = { x: 38, y: 20 };
 const vw = 100 / ZOOM;
-const vh = 50 / ZOOM;             // keeps the container's 2:1 aspect
+const vh = 50 / ZOOM; // keeps the container's 2:1 aspect
 const vx = Math.max(0, Math.min(100 - vw, FOCUS.x - vw / 2));
 const vy = Math.max(0, Math.min(50 - vh, FOCUS.y - vh / 2));
 const viewBox = `${vx} ${vy} ${vw} ${vh}`;
-const gridStroke = 0.15 / ZOOM;   // keep stroke weight constant across zoom levels
-const landStroke = 0.12 / ZOOM;
+// stroke weight is scaled so it stays a constant thickness on screen at any zoom
+const stroke = (base: number) => +((base * vw) / 100).toFixed(3);
 
-// pin (mapX% width, mapY% height of full world) -> position within the window
+// world coords + initial placement within the default window for each pin
 const placed = pins.map((p) => ({
   ...p,
+  wx: p.mapX,
+  wy: p.mapY * 0.5,
   left: ((p.mapX - vx) / vw) * 100,
   top: ((p.mapY * 0.5 - vy) / vh) * 100,
 }));
 ---
-<div class="trip-map" role="group" aria-label="Map of trips">
+<div
+  class="trip-map"
+  role="group"
+  aria-label="Interactive map of trips"
+  data-trip-map
+  data-vx={vx}
+  data-vy={vy}
+  data-vw={vw}
+>
   <!-- Stylized world map. Decorative; pins are the interactive layer.
-       Land = Natural Earth 110m, projected equirectangular (see src/data/world-land.ts),
-       so pin mapX/mapY (lng/lat as %) land on the right continents. -->
+       Land = Natural Earth 110m, projected equirectangular (see src/data/world-land.ts). -->
   <svg class="trip-map__bg" viewBox={viewBox} preserveAspectRatio="none" aria-hidden="true">
-    <path class="trip-map__land" d={WORLD_LAND_PATH} stroke-width={landStroke} />
-    <g class="trip-map__grid" stroke="var(--border-hi)" stroke-width={gridStroke} fill="none" opacity="0.4">
+    <path class="trip-map__land" d={WORLD_LAND_PATH} stroke-width={stroke(0.12)} />
+    <g class="trip-map__grid" stroke="var(--border-hi)" stroke-width={stroke(0.15)} fill="none" opacity="0.4">
       <line x1="0" y1="12.5" x2="100" y2="12.5" />
       <line x1="0" y1="25"   x2="100" y2="25" />
       <line x1="0" y1="37.5" x2="100" y2="37.5" />
@@ -51,12 +57,152 @@ const placed = pins.map((p) => ({
   </svg>
 
   {placed.map((p) => (
-    <a class={`trip-pin${p.left > 85 ? " trip-pin--flip" : ""}`} href={p.href} aria-label={p.title} style={`left:${p.left}%; top:${p.top}%`}>
+    <a
+      class="trip-pin"
+      href={p.href}
+      aria-label={p.title}
+      data-wx={p.wx}
+      data-wy={p.wy}
+      style={`left:${p.left}%; top:${p.top}%`}
+    >
       <span class="trip-pin__dot"></span>
       <span class="trip-pin__label">{p.title}</span>
     </a>
   ))}
+
+  <div class="trip-map__controls">
+    <button type="button" class="trip-map__btn" data-zoom="in" aria-label="Zoom in">+</button>
+    <button type="button" class="trip-map__btn" data-zoom="out" aria-label="Zoom out">−</button>
+    <button type="button" class="trip-map__btn" data-zoom="reset" aria-label="Reset map view">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/></svg>
+    </button>
+  </div>
+
+  <span class="trip-map__hint" aria-hidden="true">drag to pan · ⌘/ctrl-scroll or pinch to zoom</span>
 </div>
+
+<script>
+  const WORLD = { w: 100, h: 50 };
+  const MIN_W = 18; // most zoomed in (~5.5x)
+  const MAX_W = 100; // zoomed all the way out = whole world
+
+  function setup(map: HTMLElement) {
+    const svg = map.querySelector(".trip-map__bg") as SVGSVGElement;
+    const land = map.querySelector(".trip-map__land") as SVGPathElement;
+    const grid = map.querySelector(".trip-map__grid") as SVGGElement;
+    const pins = Array.from(map.querySelectorAll(".trip-pin")) as HTMLElement[];
+    const def = { x: +map.dataset.vx!, y: +map.dataset.vy!, w: +map.dataset.vw! };
+    let view = { ...def, h: def.w / 2 };
+
+    const rect = () => map.getBoundingClientRect();
+
+    function clamp() {
+      view.w = Math.max(MIN_W, Math.min(MAX_W, view.w));
+      view.h = view.w / 2;
+      view.x = Math.max(0, Math.min(WORLD.w - view.w, view.x));
+      view.y = Math.max(0, Math.min(WORLD.h - view.h, view.y));
+    }
+
+    function render() {
+      clamp();
+      svg.setAttribute("viewBox", `${view.x} ${view.y} ${view.w} ${view.h}`);
+      land.setAttribute("stroke-width", ((0.12 * view.w) / 100).toFixed(3));
+      grid.setAttribute("stroke-width", ((0.15 * view.w) / 100).toFixed(3));
+      for (const pin of pins) {
+        const wx = +pin.dataset.wx!;
+        const wy = +pin.dataset.wy!;
+        const lp = ((wx - view.x) / view.w) * 100;
+        const tp = ((wy - view.y) / view.h) * 100;
+        pin.style.left = lp + "%";
+        pin.style.top = tp + "%";
+        pin.classList.toggle("trip-pin--flip", lp > 80);
+        // hide pins panned outside the visible window
+        pin.style.visibility = lp < -4 || lp > 104 || tp < -4 || tp > 104 ? "hidden" : "";
+      }
+    }
+
+    // zoom by `factor` (>1 = in) keeping the world point under (cx,cy) fixed
+    function zoomAt(cx: number, cy: number, factor: number) {
+      const r = rect();
+      const px = (cx - r.left) / r.width;
+      const py = (cy - r.top) / r.height;
+      const wx = view.x + px * view.w;
+      const wy = view.y + py * view.h;
+      view.w /= factor;
+      view.h = view.w / 2;
+      view.x = wx - px * view.w;
+      view.y = wy - py * view.h;
+      render();
+    }
+
+    // --- pan + pinch via pointer events (mouse + touch unified) ---
+    const pointers = new Map<number, { x: number; y: number }>();
+    let panLast: { x: number; y: number } | null = null;
+    let pinchLast = 0;
+    let moved = 0;
+    const two = () => Array.from(pointers.values());
+    const dist = () => { const [a, b] = two(); return Math.hypot(a.x - b.x, a.y - b.y); };
+    const mid = () => { const [a, b] = two(); return { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 }; };
+
+    map.addEventListener("pointerdown", (e) => {
+      if ((e.target as HTMLElement).closest(".trip-map__controls")) return;
+      pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+      try { map.setPointerCapture(e.pointerId); } catch {}
+      if (pointers.size === 1) { panLast = { x: e.clientX, y: e.clientY }; moved = 0; map.classList.add("is-grabbing"); }
+      else if (pointers.size === 2) { pinchLast = dist(); panLast = null; }
+    });
+    map.addEventListener("pointermove", (e) => {
+      if (!pointers.has(e.pointerId)) return;
+      pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+      if (pointers.size === 1 && panLast) {
+        const r = rect();
+        const dx = e.clientX - panLast.x;
+        const dy = e.clientY - panLast.y;
+        moved += Math.abs(dx) + Math.abs(dy);
+        view.x -= (dx / r.width) * view.w;
+        view.y -= (dy / r.height) * view.h;
+        panLast = { x: e.clientX, y: e.clientY };
+        render();
+      } else if (pointers.size === 2) {
+        const d = dist();
+        const c = mid();
+        if (pinchLast) zoomAt(c.x, c.y, d / pinchLast);
+        pinchLast = d;
+      }
+    });
+    function release(e: PointerEvent) {
+      pointers.delete(e.pointerId);
+      if (pointers.size < 2) pinchLast = 0;
+      if (pointers.size === 1) { const p = two()[0]; panLast = { x: p.x, y: p.y }; }
+      else if (pointers.size === 0) { panLast = null; map.classList.remove("is-grabbing"); }
+    }
+    map.addEventListener("pointerup", release);
+    map.addEventListener("pointercancel", release);
+
+    // suppress pin navigation if the gesture was a drag, not a click
+    map.addEventListener("click", (e) => {
+      if (moved > 6 && (e.target as HTMLElement).closest(".trip-pin")) e.preventDefault();
+    }, true);
+
+    // wheel zoom — only with a modifier so plain page-scroll passes through
+    map.addEventListener("wheel", (e) => {
+      if (!e.ctrlKey && !e.metaKey) return;
+      e.preventDefault();
+      zoomAt(e.clientX, e.clientY, e.deltaY < 0 ? 1.15 : 1 / 1.15);
+    }, { passive: false });
+
+    // control buttons (zoom toward centre)
+    const center = (f: number) => { const r = rect(); zoomAt(r.left + r.width / 2, r.top + r.height / 2, f); };
+    map.querySelector('[data-zoom="in"]')!.addEventListener("click", () => center(1.5));
+    map.querySelector('[data-zoom="out"]')!.addEventListener("click", () => center(1 / 1.5));
+    map.querySelector('[data-zoom="reset"]')!.addEventListener("click", () => { view = { ...def, h: def.w / 2 }; render(); });
+
+    map.classList.add("is-interactive");
+    render();
+  }
+
+  document.querySelectorAll<HTMLElement>("[data-trip-map]").forEach(setup);
+</script>
 
 <style>
   .trip-map {
@@ -69,8 +215,11 @@ const placed = pins.map((p) => ({
     border: 1px solid var(--border);
     border-radius: var(--radius);
     overflow: hidden;
+    touch-action: none; /* we handle pan/zoom gestures ourselves */
   }
-  .trip-map__bg   { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .trip-map.is-interactive { cursor: grab; }
+  .trip-map.is-grabbing { cursor: grabbing; }
+  .trip-map__bg { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
   .trip-map__land {
     fill: rgba(140,165,255,0.08);
     stroke: rgba(150,175,255,0.32);
@@ -78,7 +227,7 @@ const placed = pins.map((p) => ({
   }
 
   /* The pin box is exactly the dot, so translate(-50%,-50%) centers the DOT on
-     the (mapX%, mapY%) point. The label is positioned absolutely beside it so it
+     the (left,top) point. The label is positioned absolutely beside it so it
      never adds width to the pin (which would shove the dot off the coordinate). */
   .trip-pin {
     position: absolute;
@@ -88,11 +237,11 @@ const placed = pins.map((p) => ({
     z-index: 1;
   }
   .trip-pin__dot {
-    display: block;            /* span is inline by default — block makes width/height/radius apply */
+    display: block;
     width: 14px; height: 14px;
     border-radius: 50%;
     background: var(--accent);
-    border: 2px solid var(--ring); /* light ring for contrast against the dark map */
+    border: 2px solid var(--ring);
     box-shadow: 0 0 0 4px rgba(91,140,255,0.30), 0 0 18px 5px rgba(91,140,255,0.75);
     animation: pin-pulse 2.4s ease-in-out infinite;
   }
@@ -118,8 +267,7 @@ const placed = pins.map((p) => ({
     opacity: 1;
     transform: translateY(-50%) translateX(0);
   }
-  /* Pins near the right edge open their label to the LEFT so it isn't clipped
-     by the map's overflow:hidden. */
+  /* Pins near the right edge open their label to the LEFT so it isn't clipped. */
   .trip-pin--flip .trip-pin__label {
     left: auto;
     right: 18px;
@@ -128,6 +276,51 @@ const placed = pins.map((p) => ({
   .trip-pin--flip:hover .trip-pin__label,
   .trip-pin--flip:focus-visible .trip-pin__label {
     transform: translateY(-50%) translateX(0);
+  }
+
+  /* Zoom controls + hint — only shown once JS makes the map interactive. */
+  .trip-map__controls { display: none; }
+  .trip-map__hint { display: none; }
+  .trip-map.is-interactive .trip-map__controls {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .trip-map__btn {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(8,8,11,0.65);
+    color: var(--text);
+    border: 1px solid var(--border-hi);
+    border-radius: 8px;
+    font-size: 1.1rem;
+    line-height: 1;
+    cursor: pointer;
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+    transition: background 0.15s ease, border-color 0.15s ease;
+  }
+  .trip-map__btn:hover { background: var(--bg-hover); border-color: var(--accent); }
+  .trip-map.is-interactive .trip-map__hint {
+    position: absolute;
+    left: 12px;
+    bottom: 12px;
+    z-index: 2;
+    display: block;
+    font-family: "SF Mono", "Fira Code", ui-monospace, monospace;
+    font-size: 0.68rem;
+    color: var(--muted);
+    background: rgba(8,8,11,0.5);
+    padding: 3px 9px;
+    border-radius: 20px;
+    pointer-events: none;
   }
 
   @keyframes pin-pulse {
