@@ -1,26 +1,33 @@
 ---
 // src/components/worldcup/EdgeChart.astro
-// Sorted horizontal bars per team: model / market / blended, with the
-// model-vs-market disagreement (edge) called out.
-import type { Snapshot } from "../../lib/worldcup-types";
+// Sorted horizontal bars per team: Model / Polymarket / Kalshi / Blended.
+// Polymarket and Kalshi are each de-vigged separately, so they sit on the same
+// scale as the model and blend. The model-vs-consensus disagreement is flagged.
+import type { Snapshot, Forecast } from "../../lib/worldcup-types";
 interface Props { snapshot: Snapshot; top?: number }
 const { snapshot, top = 16 } = Astro.props;
 const rows = snapshot.forecasts.slice(0, top);
-const max = Math.max(0.01, ...rows.flatMap((f) => [f.model_pct, f.market_pct, f.blended_pct]));
+const mkt = (team: string) => snapshot.market[team];
+
+const series: { label: string; color: string; get: (f: Forecast) => number | null }[] = [
+  { label: "Model",      color: "var(--accent)", get: (f) => f.model_pct },
+  { label: "Polymarket", color: "#a78bfa",       get: (f) => mkt(f.team)?.polymarket ?? null },
+  { label: "Kalshi",     color: "#f59e0b",       get: (f) => mkt(f.team)?.kalshi ?? null },
+  { label: "Blended",    color: "var(--green)",  get: (f) => f.blended_pct },
+];
+
+const allVals = rows.flatMap((f) => series.map((s) => s.get(f)))
+                    .filter((v): v is number => v != null);
+const max = Math.max(0.01, ...allVals);
 const pct = (v: number) => `${(v * 100).toFixed(1)}%`;
 const w = (v: number) => `${(v / max) * 100}%`;
-const series = [
-  { key: "model_pct", label: "Model", color: "var(--accent)" },
-  { key: "market_pct", label: "Market", color: "var(--muted)" },
-  { key: "blended_pct", label: "Blended", color: "var(--green)" },
-] as const;
 ---
 <div class="wc-edge">
   <div class="wc-legend mono">
     {series.map((s) => (
       <span class="wc-legend-item"><i style={`background:${s.color}`}></i>{s.label}</span>
     ))}
-    <span class="wc-legend-item wc-legend-edge">▲ = model sees value vs market</span>
+    <span class="wc-legend-item wc-legend-edge">▲ = model above market consensus</span>
   </div>
   {rows.map((f) => {
     const edge = f.model_pct - f.market_pct;
@@ -28,15 +35,21 @@ const series = [
       <div class="wc-edge-row">
         <div class="wc-edge-team">
           <span class="wc-team-name">{f.team}</span>
-          {edge > 0.01 && <span class="wc-edge-flag" title={`+${pct(edge)} vs market`}>▲ {pct(edge)}</span>}
+          {edge > 0.01 && <span class="wc-edge-flag" title={`+${pct(edge)} vs consensus`}>▲ {pct(edge)}</span>}
         </div>
         <div class="wc-bars">
-          {series.map((s) => (
-            <div class="wc-bar-track">
-              <div class="wc-bar" style={`width:${w(f[s.key])}; background:${s.color}`}></div>
-              <span class="wc-bar-val mono">{pct(f[s.key])}</span>
-            </div>
-          ))}
+          {series.map((s) => {
+            const v = s.get(f);
+            return (
+              <div class="wc-bar-track">
+                <span class="wc-bar-tag mono" style={`color:${s.color}`}>{s.label.slice(0, 4)}</span>
+                {v == null
+                  ? <div class="wc-bar wc-bar-empty"></div>
+                  : <div class="wc-bar" style={`width:${w(v)}; background:${s.color}`}></div>}
+                <span class="wc-bar-val mono">{v == null ? "—" : pct(v)}</span>
+              </div>
+            );
+          })}
         </div>
       </div>
     );
@@ -57,7 +70,9 @@ const series = [
   .wc-edge-flag { font-size: 0.72rem; color: var(--green); }
   .wc-bars { display: flex; flex-direction: column; gap: 4px; }
   .wc-bar-track { display: flex; align-items: center; gap: 8px; }
+  .wc-bar-tag { width: 34px; font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.03em; flex-shrink: 0; opacity: 0.85; }
   .wc-bar { height: 9px; border-radius: 5px; min-width: 2px; transition: width 0.3s ease; }
+  .wc-bar-empty { min-width: 0; background: transparent; }
   .wc-bar-val { font-size: 0.72rem; color: var(--muted); min-width: 48px; }
   @media (max-width: 540px) { .wc-edge-row { grid-template-columns: 1fr; } }
 </style>

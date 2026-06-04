@@ -7,10 +7,12 @@ export interface Forecast {
 }
 
 export interface MarketRow {
-  prob: number;
+  prob: number;        // combined, volume-weighted consensus (de-vigged)
   ask: number;
   confidence: number;
   depth: number;
+  polymarket: number | null; // this book's de-vigged win prob (null = not priced here)
+  kalshi: number | null;
 }
 
 export interface Advancement {
