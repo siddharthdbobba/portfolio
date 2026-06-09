@@ -1,0 +1,224 @@
+---
+import Base from "../../layouts/Base.astro";
+---
+
+<Base
+  title="DeDuper Privacy Policy"
+  description="DeDuper does not collect, sell, or share your data. Your photos never leave your device — all processing is on-device, with no network access, accounts, or tracking."
+>
+  <main>
+
+    <!-- ─── Hero ──────────────────────────────────────────────────────── -->
+    <section class="section privacy-hero reveal">
+      <div class="container">
+        <div class="crumb mono muted">
+          <a href="/deduper">DeDuper</a> <span aria-hidden="true">/</span> Privacy
+        </div>
+        <h1>Privacy Policy</h1>
+        <p class="meta mono muted">Effective May 29, 2026 &nbsp;·&nbsp; App version 1.0 and later</p>
+
+        <div class="summary-box card">
+          <p>
+            <strong>Short version:</strong> DeDuper does not collect, sell, or share your
+            personal data. Your photos <strong>never leave your device — period.</strong>
+            All processing happens locally; the app makes no network requests at all.
+            DeDuper is free, requires no account, and includes no analytics or tracking of any kind.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── Policy ────────────────────────────────────────────────────── -->
+    <section class="section reveal">
+      <div class="container">
+        <div class="policy">
+
+          <h2>1. Who We Are</h2>
+          <p>
+            DeDuper is developed and published by Siddharth Bobba
+            (<a class="inline-link" href="mailto:siddharthdbobba@gmail.com">siddharthdbobba@gmail.com</a>).
+            "We", "our", and "us" refer to this individual developer. "You" means anyone who installs
+            or uses DeDuper on macOS or iOS.
+          </p>
+
+          <h2>2. What DeDuper Does</h2>
+          <p>
+            DeDuper is a duplicate photo cleaner. It scans your Photos library (or a folder you select),
+            groups visually similar or time-adjacent photos, scores them automatically, and lets you delete
+            the lower-quality copies. All scanning, grouping, and scoring happens entirely on your device
+            using Apple system frameworks.
+          </p>
+
+          <h2>3. Data We Do Not Collect</h2>
+          <p>We do not collect, store, transmit, or process any of the following:</p>
+          <ul>
+            <li>Your photos, videos, or any media files</li>
+            <li>Your name, email address, or any contact information</li>
+            <li>Your Apple ID or any account credentials</li>
+            <li>Your location</li>
+            <li>Device identifiers or advertising IDs</li>
+            <li>Crash reports or usage analytics</li>
+            <li>Any behavioral or diagnostic telemetry</li>
+          </ul>
+          <p>
+            DeDuper contains <strong>no analytics SDKs, no crash-reporting services, and no third-party
+            tracking libraries</strong> of any kind.
+          </p>
+
+          <h2>4. Photo Library Access</h2>
+          <p>
+            DeDuper requests access to your Photos library solely to scan for duplicate and similar photos.
+            This access is handled entirely by Apple's <strong>Photos framework</strong> on your device.
+            The app reads photo metadata (timestamps, dimensions, file size) and generates small perceptual
+            hashes locally to compare images. No photo data is ever uploaded, transmitted, or stored outside
+            your device as part of the scanning process.
+          </p>
+          <p>
+            On macOS, you may also grant DeDuper access to a specific folder on your file system. Files in
+            that folder are read locally and never transmitted.
+          </p>
+          <p>
+            You can revoke photo library access at any time in
+            <span class="mono">System Settings → Privacy &amp; Security → Photos</span> (macOS) or
+            <span class="mono">Settings → Privacy &amp; Security → Photos</span> (iOS).
+          </p>
+
+          <h2>5. On-Device Close-Call Resolution</h2>
+          <p>
+            When two photos in a group score very closely, DeDuper uses Apple's on-device
+            <strong>Vision framework</strong> to break the tie — analyzing face sharpness, whether eyes are
+            open, and overall image aesthetics — and shows a short "Why this one?" explanation. This analysis
+            runs <strong>entirely on your device</strong>. No photo, hash, or analysis result is ever
+            transmitted anywhere. There is no AI assistant, cloud service, or external API involved.
+          </p>
+
+          <h2>6. No Network Access</h2>
+          <p>
+            DeDuper makes <strong>no network requests of any kind</strong>. It has no servers, no accounts,
+            no API integrations, and no telemetry. The app functions identically with networking fully
+            disabled. (On macOS, the app does not even request the network entitlement.)
+          </p>
+
+          <h2>7. Free App — No In-App Purchases</h2>
+          <p>
+            DeDuper is free. There are no in-app purchases, subscriptions, premium tiers, or paid features.
+            The app collects no payment information because there is nothing to buy.
+          </p>
+
+          <h2>8. Local Storage</h2>
+          <p>DeDuper stores the following data <strong>only on your device</strong>:</p>
+          <ul>
+            <li>
+              <strong>App preferences</strong> (scan sensitivity, time window, protected albums, etc.) —
+              stored in <span class="mono">UserDefaults</span>, on-device only, never synced to iCloud.
+            </li>
+            <li>
+              <strong>Audit log</strong> — a local CSV record of photos you have deleted using DeDuper.
+              Stored in the app's sandboxed container. Never transmitted. You can export or review this log
+              at any time from Settings → Audit Log, and it is removed when you uninstall the app.
+            </li>
+          </ul>
+          <p>No data is stored in iCloud, synced across devices, or accessible to the developer.</p>
+
+          <h2>9. No Advertising or Third-Party SDKs</h2>
+          <p>
+            DeDuper contains no advertising, no advertising identifiers, and no third-party SDKs of any kind.
+            The app makes no external network contact whatsoever.
+          </p>
+
+          <h2>10. Children's Privacy</h2>
+          <p>
+            DeDuper is rated 4+ and is suitable for all ages. Because we do not collect any personal data
+            from any user, no special provisions for users under 13 (COPPA) or under 16 (GDPR) are required
+            beyond the general protections described in this policy.
+          </p>
+
+          <h2>11. Data Retention and Deletion</h2>
+          <p>
+            We do not retain any data about you because we do not collect any. All app data (preferences,
+            audit log) is stored locally on your device and is deleted automatically when you uninstall DeDuper.
+          </p>
+
+          <h2>12. Your Rights</h2>
+          <p>
+            Because we collect no personal data, there is nothing for us to provide, correct, or delete on
+            our end. If you have questions about data processed by Apple (the Photos framework), please consult
+            Apple's privacy policy. If you have any concerns about DeDuper specifically, please contact us at
+            the address below.
+          </p>
+
+          <h2>13. Security</h2>
+          <p>
+            DeDuper operates within Apple's strict app-sandbox model, which limits its access to only the
+            resources you explicitly grant. Because the app performs all work on-device and makes no network
+            requests, your photos are never exposed to any network or third party.
+          </p>
+
+          <h2>14. Changes to This Policy</h2>
+          <p>
+            If we make material changes to this policy, we will update the effective date at the top of this
+            page and, where possible, notify users through an app update. Continued use of DeDuper after changes
+            are posted constitutes acceptance of the revised policy. We encourage you to review this page periodically.
+          </p>
+
+          <h2>15. Contact</h2>
+          <p>
+            If you have any questions, concerns, or requests regarding this privacy policy or DeDuper's data
+            practices, please contact:
+          </p>
+          <p>
+            <strong>Siddharth Bobba</strong><br />
+            <a class="inline-link" href="mailto:siddharthdbobba@gmail.com">siddharthdbobba@gmail.com</a>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── Back ──────────────────────────────────────────────────────── -->
+    <section class="section back-section">
+      <div class="container" style="text-align: center;">
+        <a class="btn btn-secondary" href="/deduper">← Back to DeDuper</a>
+      </div>
+    </section>
+
+  </main>
+</Base>
+
+<style>
+  .privacy-hero { padding-top: 72px; padding-bottom: 24px; }
+  .crumb        { margin-bottom: 20px; font-size: 0.85rem; }
+  .crumb a      { color: var(--muted); transition: color 0.15s; }
+  .crumb a:hover { color: var(--accent); }
+  .meta         { margin-top: 12px; font-size: 0.82rem; }
+
+  .summary-box {
+    max-width: 720px;
+    margin-top: 28px;
+    border-left: 3px solid var(--accent);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+
+  .inline-link { color: var(--accent); }
+  .inline-link:hover { text-decoration: underline; }
+
+  .policy { max-width: 720px; }
+  .policy h2 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin-top: 36px;
+    margin-bottom: 10px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--border);
+  }
+  .policy p  { font-size: 0.92rem; line-height: 1.75; margin-bottom: 14px; }
+  .policy ul { margin: 10px 0 14px 22px; }
+  .policy li { font-size: 0.92rem; line-height: 1.7; margin-bottom: 6px; }
+
+  .back-section { padding-top: 24px; padding-bottom: 48px; }
+
+  @media (max-width: 560px) {
+    .privacy-hero { padding-top: 48px; }
+  }
+</style>
