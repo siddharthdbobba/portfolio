@@ -46,7 +46,14 @@ import MediaPlaceholder from "../components/MediaPlaceholder.astro";
         <h2 class="reveal" style="margin-bottom: 32px;">Projects</h2>
 
         <a class="card project-card reveal" href="/deduper">
-          <MediaPlaceholder label="DeDuper screenshot coming soon_" ratio="16 / 9" />
+          <img
+            src="/deduper-card.jpg"
+            alt="DeDuper reviewing four near-identical fjord photos on macOS, with the sharpest marked Keep"
+            width="1600"
+            height="900"
+            loading="lazy"
+            style="width:100%; aspect-ratio:16/9; object-fit:cover; border:1px solid var(--border); border-radius:var(--radius); display:block;"
+          />
           <div class="project-header" style="margin-top: 16px;">
             <AppIcon label="DeDuper" size={46}>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -61,15 +68,17 @@ import MediaPlaceholder from "../components/MediaPlaceholder.astro";
             <div class="project-arrow">→</div>
           </div>
           <p style="margin-top: 12px;">
-            Find and remove duplicate photos from your library using on-device AI.
-            Supports Photos.app, local folders, and AI-powered close-call resolution.
+            Find and remove duplicate and burst shots from your photo library — 100%
+            on-device, private, and free. Scores each photo on sharpness and exposure,
+            suggests the keeper, and breaks close calls with on-device Vision. Scans
+            your Photos library or any folder.
           </p>
           <div class="project-tags" style="margin-top: 16px;">
             <span class="tag">Swift</span>
             <span class="tag">SwiftUI</span>
-            <span class="tag">CoreImage</span>
-            <span class="tag">StoreKit</span>
-            <span class="tag">AI</span>
+            <span class="tag">Core Image</span>
+            <span class="tag">Vision</span>
+            <span class="tag">On-device</span>
           </div>
         </a>
 
