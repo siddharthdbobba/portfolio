@@ -9,5 +9,6 @@ declare namespace Cloudflare {
   interface Env {
     WORLDCUP_PASSWORD?: string;
     WORLDCUP_COOKIE_SECRET?: string;
+    WORLDCUP_KV?: KVNamespace;
   }
 }

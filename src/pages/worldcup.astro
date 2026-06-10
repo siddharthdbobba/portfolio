@@ -28,7 +28,7 @@ const errorMsg =
 let snapshot = null;
 let unavailable = false;
 if (authed) {
-  const loaded = loadSnapshot();
+  const loaded = await loadSnapshot(env.WORLDCUP_KV);
   snapshot = loaded.snapshot;
   unavailable = loaded.isSample || isEmptySnapshot(snapshot);
 }
@@ -58,7 +58,7 @@ if (authed) {
         <div class="container">
           <h1>World Cup Predictor</h1>
           {unavailable ? (
-            <p class="wc-error mono">Snapshot unavailable — run the export and redeploy.</p>
+            <p class="wc-error mono">Snapshot unavailable — run the export and upload to KV.</p>
           ) : (
             <div class="wc-dash">
               <p class="lead" style="max-width: 560px;">

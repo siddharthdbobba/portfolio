@@ -11,7 +11,8 @@
 	// namespace bound as SESSION. Pin the existing namespace id so deploys reuse
 	// it instead of trying to re-create it (which fails with KV error 10014).
 	"kv_namespaces": [
-		{ "binding": "SESSION", "id": "75e5f9e1f3914a6d9a350b5fff184326" }
+		{ "binding": "SESSION", "id": "75e5f9e1f3914a6d9a350b5fff184326" },
+		{ "binding": "WORLDCUP_KV", "id": "de4652f7821d4299b51421fd35c4aefd" }
 	],
 	"observability": {
 		"enabled": true
