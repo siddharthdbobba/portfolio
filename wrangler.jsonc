@@ -16,5 +16,10 @@
 	],
 	"observability": {
 		"enabled": true
-	}
+	},
+	"workers_dev": false,
+	"routes": [
+		{ "pattern": "siddharthbobba.com/*", "zone_name": "siddharthbobba.com" },
+		{ "pattern": "www.siddharthbobba.com/*", "zone_name": "siddharthbobba.com" }
+	]
 }
