@@ -14,7 +14,7 @@ const { Content } = await render(entry);
 const hasStory = (entry.body ?? "").trim().length > 0;
 const dateLabel = date.toLocaleDateString("en-US", { month: "long", year: "numeric" });
 ---
-<Base title={`${title} — Trips`} description={`${title}, ${location}.`}>
+<Base title={`${title} · Trips`} description={`${title}, ${location}.`}>
   <main>
     <section class="section hero-section reveal">
       <div class="container">

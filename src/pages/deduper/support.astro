@@ -3,7 +3,7 @@ import Base from "../../layouts/Base.astro";
 ---
 
 <Base
-  title="DeDuper Support — Help & Troubleshooting"
+  title="DeDuper Support · Help & Troubleshooting"
   description="Get help with DeDuper. Contact support, report a bug, and find quick fixes for the most common issues on macOS."
 >
   <main>
@@ -16,7 +16,7 @@ import Base from "../../layouts/Base.astro";
         </div>
         <h1>Support</h1>
         <p class="lead" style="margin-top: 16px; max-width: 520px;">
-          Trouble getting DeDuper running, or found a bug? Reach out below —
+          Trouble getting DeDuper running, or found a bug? Reach out below,
           and check the quick fixes for the most common issues first.
         </p>
       </div>
@@ -28,7 +28,7 @@ import Base from "../../layouts/Base.astro";
         <h2 style="margin-bottom: 8px;">Get in touch</h2>
         <p style="margin-bottom: 32px; max-width: 520px;">
           DeDuper is free and open source, maintained in my spare time. I read every
-          message — email is best for help, GitHub for bugs and feature requests.
+          message. Email is best for help, and GitHub is best for bugs and feature requests.
         </p>
 
         <div class="contact-grid">
@@ -92,8 +92,8 @@ import Base from "../../layouts/Base.astro";
             <h3 class="help-q">macOS won't let me open DeDuper</h3>
             <p class="help-a">
               DeDuper is signed and notarized by Apple, so it should open normally. On the very
-              first launch macOS may ask you to confirm opening an app downloaded from the internet —
-              just click <strong>Open</strong>. If it still won't open, make sure you've dragged DeDuper
+              first launch macOS may ask you to confirm opening an app downloaded from the internet.
+              Just click <strong>Open</strong>. If it still won't open, make sure you've dragged DeDuper
               into your Applications folder first, then try again.
             </p>
           </div>
@@ -103,7 +103,7 @@ import Base from "../../layouts/Base.astro";
             <p class="help-a">
               macOS gates access to your library. Open
               <span class="mono">System Settings → Privacy &amp; Security → Photos</span> and turn on
-              DeDuper, then relaunch the app. For scanning a local folder, grant access when prompted —
+              DeDuper, then relaunch the app. For scanning a local folder, grant access when prompted,
               or add DeDuper under <span class="mono">Privacy &amp; Security → Files and Folders</span> /
               <span class="mono">Full Disk Access</span>.
             </p>
@@ -112,14 +112,14 @@ import Base from "../../layouts/Base.astro";
           <div class="help-item">
             <h3 class="help-q">Scanning is slow or looks stuck</h3>
             <p class="help-a">
-              The first scan of a large library takes longest — DeDuper builds a perceptual hash for
+              The first scan of a large library takes the longest, since DeDuper builds a perceptual hash for
               every photo. Progress can pause on big videos or RAW files. Leave it running; subsequent
               scans are much faster. If it never finishes, email me with your library size and macOS version.
             </p>
           </div>
 
           <div class="help-item">
-            <h3 class="help-q">It flagged too many — or too few — duplicates</h3>
+            <h3 class="help-q">It flagged too many (or too few) duplicates</h3>
             <p class="help-a">
               Tune the sensitivity (conservative, balanced, or aggressive) and the time window
               (default 30 seconds) in settings. Conservative flags only near-identical shots taken
@@ -134,7 +134,7 @@ import Base from "../../layouts/Base.astro";
               Nothing is permanently erased. Photos removed from your Apple Photos library go to the
               <strong>Recently Deleted</strong> album, recoverable for 30 days; files removed from a local
               folder go to the <strong>Trash</strong>. To decide before anything is removed at all, turn on
-              <strong>Hold for review</strong> — DeDuper then moves flagged photos to a review album instead
+              <strong>Hold for review</strong>, and DeDuper will move flagged photos to a review album instead
               of deleting them.
             </p>
           </div>
@@ -151,7 +151,7 @@ import Base from "../../layouts/Base.astro";
           <div class="help-item">
             <h3 class="help-q">Is my data private?</h3>
             <p class="help-a">
-              Yes. DeDuper has no network access — your photos and their metadata never leave your device.
+              Yes. DeDuper has no network access, so your photos and their metadata never leave your device.
               Grouping, scoring, and close-call resolution all run on-device. There are no accounts, no
               uploads, and no tracking. You can verify this yourself in the
               <a class="inline-link" href="https://github.com/siddharthdbobba/DeDuper" target="_blank" rel="noopener">open source</a>.

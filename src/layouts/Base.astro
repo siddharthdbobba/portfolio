@@ -7,7 +7,7 @@ export interface Props {
   description?: string;
 }
 
-const { title, description = "Siddharth Bobba — developer, student at Purdue." } = Astro.props;
+const { title, description = "Siddharth Bobba, developer and student at Purdue." } = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
 <!doctype html>
@@ -23,6 +23,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <meta property="og:description" content={description} />
     <meta property="og:url"         content={canonicalURL} />
     <meta property="og:type"        content="website" />
+    <meta property="og:image"       content="https://siddharthbobba.com/og-card.png" />
 
     <title>{title}</title>
 
@@ -37,7 +38,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=3" />
   </head>
   <body>
-    <nav>
+    <nav aria-label="Main navigation">
       <div class="nav-inner">
         <a class="logo" href="/" aria-label="Siddharth Bobba">s<span class="logo-b">b</span><span class="logo-caret">_</span></a>
         <ul class="nav-links">
