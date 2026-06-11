@@ -1,0 +1,26 @@
+---
+import Base from "../layouts/Base.astro";
+---
+<Base title="404 · Siddharth Bobba" description="This page doesn't exist.">
+  <main>
+    <section class="section hero-section reveal">
+      <div class="container">
+        <div class="hero-eyebrow mono muted">404_</div>
+        <h1>this page doesnt exist</h1>
+        <p class="lead" style="margin-top: 16px; max-width: 480px;">
+          prolly a stale link or a typo. nothing to see here
+        </p>
+        <div style="margin-top: 32px;">
+          <a class="btn btn-primary" href="/">back home</a>
+        </div>
+      </div>
+    </section>
+  </main>
+</Base>
+
+<style>
+  .hero-section { padding-top: 80px; padding-bottom: 48px; }
+  .hero-eyebrow { margin-bottom: 16px; font-size: 0.85rem; letter-spacing: 0.05em; }
+
+  @media (max-width: 480px) { .hero-section { padding-top: 56px; } }
+</style>

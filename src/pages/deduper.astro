@@ -5,7 +5,7 @@ import AppIcon from "../components/AppIcon.astro";
 
 <Base
   title="DeDuper · Remove Duplicate Photos"
-  description="Find and remove duplicate photos from your library using on-device AI. Private, fast, and built for macOS and iOS."
+  description="Find and remove duplicate photos from your library using on-device AI. Private, fast, and built for macOS. iOS coming soon."
 >
   <main>
 
@@ -14,8 +14,7 @@ import AppIcon from "../components/AppIcon.astro";
       <div class="container">
         <div class="app-badge-row">
           <span class="platform-badge">macOS</span>
-          <span class="platform-badge">iOS</span>
-          <span class="platform-badge beta-badge">Beta</span>
+          <span class="platform-badge">iOS coming soon</span>
         </div>
 
         <div class="app-hero-row">
@@ -46,9 +45,7 @@ import AppIcon from "../components/AppIcon.astro";
     <section class="section screenshot-section reveal">
       <div class="container">
         <div class="screenshot-frame">
-          <div class="screenshot-placeholder">
-            <span class="mono muted" style="font-size: 0.85rem;">screenshots coming soon_</span>
-          </div>
+          <img src="/assets/deduper-review-web.jpg" alt="DeDuper review screen showing groups of near-duplicate photos" loading="lazy" style="display:block;width:100%;" />
         </div>
       </div>
     </section>
@@ -72,7 +69,7 @@ import AppIcon from "../components/AppIcon.astro";
             </AppIcon>
             <div>
               <div class="download-name">DeDuper <span class="mono muted" style="font-size: 0.8rem;">1.0</span></div>
-              <div class="download-req mono muted">macOS 14 Sonoma or later · Apple Silicon &amp; Intel · 1.6 MB</div>
+              <div class="download-req mono muted">macOS 14 Sonoma or later · Apple Silicon &amp; Intel · 1.2 MB</div>
             </div>
           </div>
           <a class="btn btn-primary" href="/downloads/DeDuper.dmg" download>
@@ -81,7 +78,12 @@ import AppIcon from "../components/AppIcon.astro";
         </div>
 
         <div class="gatekeeper-note card" style="margin-top: 16px;">
-          <strong>Signed &amp; notarized by Apple.</strong> Open the .dmg and drag DeDuper into your Applications folder. On first launch macOS may ask you to confirm opening an app downloaded from the internet. Click <strong>Open</strong> and you're set.
+          <strong>How to install</strong>
+          <ol class="install-list">
+            <li>Open <span class="mono">DeDuper.dmg</span> from your Downloads.</li>
+            <li>In the window that opens, drag the <strong>DeDuper</strong> icon onto the <strong>Applications</strong> folder.</li>
+            <li>Launch DeDuper from Applications. It's signed &amp; notarized by Apple, so if macOS asks on first open, just click <strong>Open</strong>.</li>
+          </ol>
         </div>
       </div>
     </section>
@@ -207,9 +209,9 @@ import AppIcon from "../components/AppIcon.astro";
         </div>
 
         <p class="faq-more">
-          Still have a question or running into trouble? <a href="/deduper/support">Visit support →</a>
+          Still have a question or running into trouble? <a href="/deduper/support/">Visit support →</a>
           <br />
-          Read how your data is handled in the <a href="/deduper/privacy">privacy policy →</a>
+          Read how your data is handled in the <a href="/deduper/privacy/">privacy policy →</a>
         </p>
       </div>
     </section>
@@ -236,11 +238,6 @@ import AppIcon from "../components/AppIcon.astro";
     color: var(--muted);
     font-family: "SF Mono", "Fira Code", monospace;
   }
-  .beta-badge {
-    border-color: var(--accent);
-    color: var(--accent);
-  }
-
   /* Download */
   .download-box {
     display: flex;
@@ -259,6 +256,14 @@ import AppIcon from "../components/AppIcon.astro";
     border-left: 3px solid var(--accent);
     border-radius: 0 var(--radius) var(--radius) 0;
   }
+  .install-list {
+    margin: 10px 0 0;
+    padding-left: 1.25em;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .install-list li { padding-left: 4px; }
   @media (max-width: 500px) {
     .download-box { flex-direction: column; align-items: flex-start; }
   }
@@ -273,12 +278,6 @@ import AppIcon from "../components/AppIcon.astro";
     border-radius: var(--radius);
     overflow: hidden;
   }
-  .screenshot-placeholder {
-    background: var(--bg-card);
-    height: 360px;
-    display: flex; align-items: center; justify-content: center;
-  }
-
   /* Features */
   .features-grid {
     display: grid;
@@ -310,11 +309,11 @@ import AppIcon from "../components/AppIcon.astro";
 
   /* Responsive */
   @media (max-width: 700px) {
-    .features-grid { grid-template-columns: 1fr; }
+    .features-grid { grid-template-columns: 1fr 1fr; }
     .app-hero-row  { flex-direction: column; align-items: flex-start; }
   }
   @media (max-width: 480px) {
     .hero-section { padding-top: 48px; }
-    .features-grid { grid-template-columns: 1fr 1fr; }
+    .features-grid { grid-template-columns: 1fr; }
   }
 </style>

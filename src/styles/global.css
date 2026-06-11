@@ -137,7 +137,7 @@ nav {
 
 /* Terminal-style `sb_` brand wordmark */
 .logo {
-  font-family: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  font-family: "JetBrains Mono Variable", ui-monospace, "SF Mono", Menlo, monospace;
   font-weight: 600;
   font-size: 1.25rem;
   letter-spacing: -0.01em;

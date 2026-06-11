@@ -9,7 +9,7 @@ const trips = (await getCollection("trips"))
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 
 const pins = trips.map((t) => ({
-  href: `/trips/${t.id}`,
+  href: `/trips/${t.id}/`,
   title: t.data.title,
   mapX: t.data.mapX,
   mapY: t.data.mapY,
@@ -41,7 +41,7 @@ const pins = trips.map((t) => ({
           <div class="trips-grid">
             {trips.map((t) => (
               <TripCard
-                href={`/trips/${t.id}`}
+                href={`/trips/${t.id}/`}
                 title={t.data.title}
                 location={t.data.location}
                 date={t.data.date}

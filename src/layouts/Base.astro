@@ -1,13 +1,19 @@
 ---
 import "@fontsource-variable/space-grotesk";
 import "@fontsource-variable/inter";
+import "@fontsource-variable/jetbrains-mono";
 
 export interface Props {
   title: string;
   description?: string;
+  image?: string;
 }
 
-const { title, description = "Siddharth Bobba, developer and student at Purdue." } = Astro.props;
+const {
+  title,
+  description = "Siddharth Bobba, developer and student at Purdue.",
+  image = "https://siddharthbobba.com/og-card.png",
+} = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
 <!doctype html>
@@ -23,7 +29,13 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <meta property="og:description" content={description} />
     <meta property="og:url"         content={canonicalURL} />
     <meta property="og:type"        content="website" />
-    <meta property="og:image"       content="https://siddharthbobba.com/og-card.png" />
+    <meta property="og:image"       content={image} />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card"        content="summary_large_image" />
+    <meta name="twitter:title"       content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image"       content={image} />
 
     <title>{title}</title>
 
@@ -43,7 +55,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
         <a class="logo" href="/" aria-label="Siddharth Bobba">s<span class="logo-b">b</span><span class="logo-caret">_</span></a>
         <ul class="nav-links">
           <li><a href="/#work">projects</a></li>
-          <li><a href="/trips">trips</a></li>
+          <li><a href="/trips/">trips</a></li>
           <li><a href="/#about">about</a></li>
           <li><a href="/#contact">contact</a></li>
           <li><a href="https://github.com/siddharthdbobba" target="_blank" rel="noopener">github</a></li>

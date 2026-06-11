@@ -10,20 +10,17 @@
   --bg-card: #101015;
   --bg-card-2: #14141b;
   --line: #1d1d27;
-  --line-2: #26263340;
 
   /* text */
   --text: #ededf2;
   --text-2: #c3c3cf;
   --muted: #8b8b97;
-  --faint: #5a5a66;
+  --faint: #8a8a96;
 
   /* accents */
   --blue: #5b8cff;
   --blue-bright: #7aa2ff;
-  --blue-deep: #1d4ed8;
   --violet: #9b6bff;
-  --violet-bright: #b58cff;
   --grad: linear-gradient(118deg, #2f6bff 0%, #5b8cff 42%, #9b6bff 100%);
   --grad-soft: linear-gradient(118deg, #1d4ed8, #3b82f6, #8b6bff);
 
@@ -32,9 +29,9 @@
   --amber: #f5b54a;
 
   /* type */
-  --display: "Space Grotesk", system-ui, sans-serif;
-  --body: "Inter", system-ui, sans-serif;
-  --mono: "JetBrains Mono", ui-monospace, monospace;
+  --display: "Space Grotesk Variable", system-ui, sans-serif;
+  --body: "Inter Variable", system-ui, sans-serif;
+  --mono: "JetBrains Mono Variable", ui-monospace, monospace;
 
   /* layout */
   --container: 1140px;
@@ -45,6 +42,7 @@
 }
 
 * { box-sizing: border-box; }
+[id] { scroll-margin-top: 76px; }
 html { scroll-behavior: smooth; }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 
@@ -401,6 +399,9 @@ section { position: relative; }
   position: relative;
   z-index: 2;
   overflow: hidden;
+  /* fade the edges so any horizontal overflow reads as a ticker, not a hard cut */
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 3%, #000 97%, transparent 100%);
+          mask-image: linear-gradient(90deg, transparent 0, #000 3%, #000 97%, transparent 100%);
 }
 .statusbar-track {
   display: flex;
@@ -408,17 +409,25 @@ section { position: relative; }
   gap: 0;
   padding: 0;
   font-family: var(--mono);
-  font-size: 13px;
+  font-size: 12px;
+  /* center when everything fits; fall back to left-aligned (never clip the start) on overflow */
+  justify-content: safe center;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
+.statusbar-track::-webkit-scrollbar { display: none; }
 .statusbar-track .chip {
   display: inline-flex;
   align-items: center;
-  gap: 9px;
-  padding: 15px 26px;
+  gap: 8px;
+  padding: 13px 18px;
   color: var(--muted);
   white-space: nowrap;
   border-right: 1px solid var(--line);
+  flex: 0 0 auto;
 }
+.statusbar-track .chip:last-child { border-right: 0; }
 .statusbar-track .chip .k { color: var(--faint); }
 .statusbar-track .chip b { color: var(--text-2); font-weight: 500; }
 .statusbar-track .chip .live {
@@ -521,6 +530,8 @@ section { position: relative; }
   border-radius: 6px;
   padding: 4px 10px;
   white-space: nowrap;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
 }
 .card-link {
   margin-top: 22px;
@@ -536,34 +547,6 @@ section { position: relative; }
 
 /* ---------- project cover art (abstract, on-brand) ---------- */
 .cover-canvas { position: absolute; inset: 0; }
-.cover-label {
-  position: absolute;
-  left: 14px; bottom: 12px;
-  font-family: var(--mono);
-  font-size: 10px;
-  color: var(--faint);
-  letter-spacing: 0.5px;
-  z-index: 4;
-  background: rgba(8,8,11,0.5);
-  padding: 3px 7px;
-  border-radius: 5px;
-}
-/* dedup grid motif */
-.m-dedup { position: absolute; inset: 0; display: grid; place-items: center; }
-.m-dedup .ph-grid {
-  display: grid;
-  grid-template-columns: repeat(5, 38px);
-  grid-auto-rows: 38px;
-  gap: 9px;
-  transform: rotate(-8deg) scale(1.05);
-}
-.m-dedup .px {
-  border-radius: 8px;
-  background: linear-gradient(140deg, #1a2444, #0e1426);
-  border: 1px solid #20294a;
-}
-.m-dedup .px.dup { outline: 1px dashed rgba(155,107,255,0.6); outline-offset: 2px; opacity: 0.45; }
-.m-dedup .px.keep { background: var(--grad-soft); border-color: transparent; box-shadow: 0 6px 18px -6px rgba(91,140,255,0.6); }
 
 .cover-fade {
   position: absolute; inset: 0;

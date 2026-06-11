@@ -8,7 +8,7 @@ const money = (v: number) => `$${v.toLocaleString("en-US", { minimumFractionDigi
 const pct = (v: number) => `${(v * 100).toFixed(1)}%`;
 const signed = (v: number) => `${v >= 0 ? "+" : ""}${pct(v)}`;
 const DISCLAIMER =
-  "Model-based estimate; prediction markets are highly efficient. For education only — never stake more than you can afford to lose.";
+  "Model-based estimate; prediction markets are highly efficient. For education only. Never stake more than you can afford to lose.";
 ---
 <div class="wc-betting">
   <div class="wc-betting-head">

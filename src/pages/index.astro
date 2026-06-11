@@ -1,5 +1,8 @@
 ---
 import '../styles/homepage.css';
+import '@fontsource-variable/space-grotesk';
+import '@fontsource-variable/inter';
+import '@fontsource-variable/jetbrains-mono';
 ---
 <!DOCTYPE html>
 <html lang="en">
@@ -8,10 +11,26 @@ import '../styles/homepage.css';
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Siddharth Bobba · Native, on-device AI apps</title>
 <meta name="description" content="My name is Siddharth Bobba. I study Computer and Information Technology and Economics at Purdue, and I build native macOS and iOS apps powered by on-device AI." />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
-<link rel="icon" type="image/svg+xml" href="/favicon.svg" id="favicon" />
+<link rel="canonical" href="https://siddharthbobba.com/" />
+
+<!-- Open Graph -->
+<meta property="og:title"       content="Siddharth Bobba · Native, on-device AI apps" />
+<meta property="og:description" content="My name is Siddharth Bobba. I study Computer and Information Technology and Economics at Purdue, and I build native macOS and iOS apps powered by on-device AI." />
+<meta property="og:type"        content="website" />
+<meta property="og:url"         content="https://siddharthbobba.com/" />
+<meta property="og:image"       content="https://siddharthbobba.com/og-card.png" />
+
+<!-- Twitter Card -->
+<meta name="twitter:card"        content="summary_large_image" />
+<meta name="twitter:title"       content="Siddharth Bobba · Native, on-device AI apps" />
+<meta name="twitter:description" content="My name is Siddharth Bobba. I study Computer and Information Technology and Economics at Purdue, and I build native macOS and iOS apps powered by on-device AI." />
+<meta name="twitter:image"       content="https://siddharthbobba.com/og-card.png" />
+
+<!-- Favicons -->
+<link rel="icon" href="/favicon.ico?v=3" sizes="48x48" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg?v=3" id="favicon" />
+<link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png?v=3" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=3" />
 </head>
 <body>
 
@@ -28,6 +47,7 @@ import '../styles/homepage.css';
       <div class="nav-links">
         <a href="#experience"><span class="hash">#</span> experience</a>
         <a href="#work"><span class="hash">#</span> projects</a>
+        <a href="/trips/"><span class="hash">#</span> trips</a>
         <a href="#about"><span class="hash">#</span> about</a>
         <a href="#contact"><span class="hash">#</span> contact</a>
       </div>
@@ -85,7 +105,7 @@ import '../styles/homepage.css';
 
           <article class="exp-item reveal">
             <div class="exp-meta">
-              <div class="exp-co"><img src="/assets/logo-lockheed-clean.png" class="exp-logo" alt="Lockheed Martin" />Lockheed Martin</div>
+              <div class="exp-co"><img src="/assets/logo-lockheed-clean.png" class="exp-logo" alt="" />Lockheed Martin</div>
               <div class="exp-role">AI + Cloud Intern <span class="exp-now">current</span></div>
               <div class="exp-when">May 2026 &ndash; Present · prev. Data Science Intern, Summer 2025</div>
             </div>
@@ -106,7 +126,7 @@ import '../styles/homepage.css';
 
           <article class="exp-item reveal" data-delay="1">
             <div class="exp-meta">
-              <div class="exp-co"><img src="/assets/logo-boilermaker.png" class="exp-logo" alt="Boilermaker Consulting" />Boilermaker Consulting</div>
+              <div class="exp-co"><img src="/assets/logo-boilermaker.png" class="exp-logo" alt="" />Boilermaker Consulting</div>
               <div class="exp-role">Consultant <span class="exp-now">current</span></div>
               <div class="exp-when">Jan 2026 &ndash; Present · West Lafayette, IN</div>
             </div>
@@ -126,7 +146,7 @@ import '../styles/homepage.css';
 
           <article class="exp-item reveal" data-delay="2">
             <div class="exp-meta">
-              <div class="exp-co"><img src="/assets/logo-wwf.png" class="exp-logo" alt="World Wildlife Fund" />World Wildlife Fund</div>
+              <div class="exp-co"><img src="/assets/logo-wwf.png" class="exp-logo" alt="" />World Wildlife Fund</div>
               <div class="exp-role">Data Science Researcher</div>
               <div class="exp-when">Aug 2025 &ndash; May 2026 · West Lafayette, IN</div>
             </div>
@@ -180,7 +200,7 @@ import '../styles/homepage.css';
                   <span class="tag">embeddings</span>
                   <span class="tag">on-device</span>
                 </div>
-                <a href="/deduper" class="card-link">View case study <span class="arrow">→</span></a>
+                <a href="/deduper/" class="card-link">Learn more <span class="arrow">→</span></a>
               </div>
             </div>
           </article>
@@ -241,13 +261,13 @@ import '../styles/homepage.css';
                 <span class="card-badge">iOS</span>
               </div>
               <h3>Trips</h3>
-              <p>A quiet travel log. Routes, photos, and the notes you actually want to keep, stitched into a timeline worth coming back to.</p>
+              <p>A quiet travel log. Routes, photos, and the notes you actually want to keep, stitched into a timeline worth coming back to. The iOS app is still in the works, but the log is live.</p>
               <div class="card-tags">
                 <span class="tag">Swift</span>
                 <span class="tag">MapKit</span>
                 <span class="tag">SwiftData</span>
               </div>
-              <a href="#contact" class="card-link">Coming soon <span class="arrow">→</span></a>
+              <a href="/trips/" class="card-link">See the trips <span class="arrow">→</span></a>
             </div>
           </article>
 
@@ -713,6 +733,107 @@ import '../styles/homepage.css';
         chip.hidden = false;
       })
       .catch(function () { /* keep chip hidden */ });
+  })();
+
+  /* ---------- ⌘S / Ctrl+S jump palette ---------- */
+  (function cmdPalette() {
+    var NAV_ITEMS = [
+      { label: "experience", href: "#experience" },
+      { label: "projects",   href: "#work" },
+      { label: "trips",      href: "/trips/" },
+      { label: "about",      href: "#about" },
+      { label: "contact",    href: "#contact" }
+    ];
+
+    /* build styles */
+    var style = document.createElement("style");
+    style.textContent = [
+      "#cmd-palette{position:fixed;top:72px;left:50%;transform:translateX(-50%);",
+      "z-index:9999;width:min(340px,90vw);background:var(--bg-card,#131320);",
+      "border:1px solid var(--border,rgba(255,255,255,.1));border-radius:12px;",
+      "box-shadow:0 24px 64px rgba(0,0,0,.6);overflow:hidden;outline:none;}",
+      "#cmd-palette ul{margin:0;padding:8px;list-style:none;}",
+      "#cmd-palette li a{display:flex;align-items:center;gap:10px;padding:10px 14px;",
+      "border-radius:8px;color:var(--text-1,#e8e8e8);text-decoration:none;",
+      "font-size:14px;letter-spacing:.02em;}",
+      "#cmd-palette li a:hover,#cmd-palette li.active a",
+      "{background:rgba(91,140,255,.15);}",
+      "#cmd-palette .p-hash{color:#5b8cff;font-size:12px;opacity:.7;}"
+    ].join("");
+    if (!reduce) {
+      style.textContent += [
+        "#cmd-palette:not([hidden]){animation:palette-in .12s ease;}",
+        "@keyframes palette-in{from{opacity:0;transform:translateX(-50%) translateY(-8px);}",
+        "to{opacity:1;transform:translateX(-50%) translateY(0);}}"
+      ].join("");
+    }
+    document.head.appendChild(style);
+
+    /* build DOM */
+    var overlay = document.createElement("div");
+    overlay.id = "cmd-palette";
+    overlay.setAttribute("hidden", "");
+    overlay.setAttribute("role", "dialog");
+    overlay.setAttribute("aria-modal", "true");
+    overlay.setAttribute("aria-label", "Jump to section");
+    overlay.tabIndex = -1;
+
+    var ul = document.createElement("ul");
+    NAV_ITEMS.forEach(function (item) {
+      var li = document.createElement("li");
+      var a  = document.createElement("a");
+      a.href = item.href;
+      a.innerHTML = '<span class="p-hash">#</span>' + item.label;
+      li.appendChild(a);
+      ul.appendChild(li);
+    });
+    overlay.appendChild(ul);
+    document.body.appendChild(overlay);
+
+    var activeIdx = 0;
+
+    function getItems() { return overlay.querySelectorAll("li"); }
+
+    function setActive(idx) {
+      var its = getItems();
+      if (!its.length) return;
+      activeIdx = (idx + its.length) % its.length;
+      its.forEach(function (li) { li.classList.remove("active"); });
+      its[activeIdx].classList.add("active");
+      its[activeIdx].querySelector("a").focus();
+    }
+
+    function open() {
+      overlay.removeAttribute("hidden");
+      setActive(0);
+    }
+
+    function close() {
+      overlay.setAttribute("hidden", "");
+      getItems().forEach(function (li) { li.classList.remove("active"); });
+    }
+
+    function isOpen() { return !overlay.hasAttribute("hidden"); }
+
+    window.addEventListener("keydown", function (e) {
+      if ((e.metaKey || e.ctrlKey) && e.key === "s") {
+        e.preventDefault();
+        if (isOpen()) { close(); } else { open(); }
+        return;
+      }
+      if (!isOpen()) return;
+      if (e.key === "Escape")    { e.preventDefault(); close(); return; }
+      if (e.key === "ArrowDown") { e.preventDefault(); setActive(activeIdx + 1); return; }
+      if (e.key === "ArrowUp")   { e.preventDefault(); setActive(activeIdx - 1); return; }
+    });
+
+    document.addEventListener("click", function (e) {
+      if (isOpen() && !overlay.contains(e.target)) { close(); }
+    });
+
+    overlay.addEventListener("click", function (e) {
+      if (e.target.closest("a")) { close(); }
+    });
   })();
 
   /* ---------- blinking favicon (caret toggles ~once/sec) ---------- */
